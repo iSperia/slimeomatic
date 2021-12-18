@@ -46,6 +46,7 @@ class LiquidSourceActor(
         }
         foreground.addActor(refreshButton)
         refreshButton.onClick {
+            context.sound("switch").play()
             colorActiveIndex = (colorActiveIndex + 1) % colors.size
             liquidImage.color = colors[colorActiveIndex]
         }

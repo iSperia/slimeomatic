@@ -14,13 +14,20 @@ data class LockedBlockConfig(
     val y: Int
 )
 
+data class TutorialConfig(
+    val x: Int,
+    val y: Int,
+    val text: String
+)
+
 data class LevelConfig(
     val targetColor: ColorConfig,
     val blocks: List<BlockType>,
     val liquids: List<ColorConfig>,
     val adders: List<ColorConfig>,
     val removers: List<ColorConfig>,
-    val locked: List<LockedBlockConfig>?
+    val locked: List<LockedBlockConfig>?,
+    val tutorials: List<TutorialConfig>?
 )
 
 data class LevelsConfig(

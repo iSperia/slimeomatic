@@ -18,6 +18,7 @@ class DoorActor(
     }
 
     fun openDoor() {
+        context.sound("garage_open").play()
         fg.addAction(ScaleToAction().apply {
             setScale(1f, 0f)
             duration = 0.3f
@@ -25,6 +26,7 @@ class DoorActor(
     }
 
     fun closeDoor() {
+        context.sound("garage_close").play()
         fg.addAction(ScaleToAction().apply {
             setScale(1f, 1f)
             duration = 0.3f

@@ -46,6 +46,7 @@ class LevelChooseScreen(
             }
             levels.addActor(levelActor)
             levelActor.onClick {
+                context.sound("enter").play()
                 game.screen = FieldScreen(context, level, game, index)
             }
         }

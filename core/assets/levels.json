@@ -5,28 +5,61 @@
       "blocks": ["LIQUID"],
       "liquids": [{"r": 0, "g": 1, "b": 1}],
       "adders": [{"r": 0, "g": 1, "b": 1}],
-      "removers": [{"r": 0, "g": 1, "b": 1}]
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Place a block on the field to complete the machine with left click\n\nOn each level you should create a slime",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 1, "g": 1, "b": 0},
       "blocks": ["LIQUID"],
       "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
       "adders": [{"r": 0, "g": 1, "b": 1}],
-      "removers": [{"r": 0, "g": 1, "b": 1}]
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Press button on liquid source to change color. \nColor set may differ from level to level\nThe slime should be same color as the color in the bottle on the right",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 1, "g": 0, "b": 1},
       "blocks": ["LIQUID", "ADDER"],
       "liquids": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
       "adders": [{"r": 1, "g": 0, "b": 0}],
-      "removers": [{"r": 0, "g": 1, "b": 1}]
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "You may choose different type of blocks on the right panel",
+          "x": 700,
+          "y": 950
+        },
+        {
+          "text": "Adder block takes a color, and adds another one (another color is displayed on the block)",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 1, "g": 0, "b": 0},
       "blocks": ["LIQUID", "ADDER"],
       "liquids": [{"r": 0, "g": 0.5, "b": 0},{"r": 0, "g": 0, "b": 0.5},{"r": 0.5, "g": 0, "b": 0}],
       "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
-      "removers": [{"r": 0, "g": 1, "b": 1}]
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Play with tones",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 0, "g": 1, "b": 1},
@@ -34,14 +67,109 @@
       "liquids": [{"r": 0.5, "g": 0, "b": 0},{"r": 0, "g": 0.5, "b": 0},{"r": 0, "g": 0, "b": 0.5}],
       "adders": [{"r": 0.5, "g": 0, "b": 0}, {"r": 0, "g": 0, "b": 0.5}, {"r": 0, "g": 0.5, "b": 0}],
       "removers": [{"r": 0, "g": 1, "b": 1}],
-      "locked": [{"type": "ADDER", "x": 5, "y": 1}]
+      "locked": [{"type": "ADDER", "x": 5, "y": 1}],
+      "tutorials": [
+        {
+          "text": "On some levels you are given with some blocks that can NOT be removed",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 1, "g": 0.5, "b": 0.5},
       "blocks": ["LIQUID", "MIXER", "CORNER"],
       "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
       "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Mixer takes average of two colors",
+          "x": 144,
+          "y": 870
+        }
+      ]
+    },
+    {
+      "targetColor": {"r": 0, "g": 1, "b": 0},
+      "blocks": ["LIQUID", "INVERTOR"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Invertor inverts the color",
+          "x": 144,
+          "y": 870
+        }
+      ]
+    },
+    {
+      "targetColor": {"r": 0, "g": 1, "b": 0},
+      "blocks": ["LIQUID", "ADDER", "INVERTOR"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "locked": [{"type": "ADDER", "x": 5, "y": 1}]
+    },
+    {
+      "targetColor": {"r": 0, "g": 0.5, "b": 1},
+      "blocks": ["LIQUID", "MIXER", "CORNER", "INVERTOR"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "locked": [{"type": "MIXER", "x": 5, "y": 1}, {"type": "INVERTOR", "x": 4, "y": 2}]
+    },
+    {
+      "targetColor": {"r": 0.75, "g": 1, "b": 0.75},
+      "blocks": ["LIQUID", "MIXER", "CORNER", "INVERTOR"],
+      "liquids": [{"r": 0, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 1}],
+      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
       "removers": [{"r": 0, "g": 1, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 1, "g": 0, "b": 0},
+      "blocks": ["LIQUID", "REMOVER"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Remover block distracts the color from incoming color",
+          "x": 144,
+          "y": 870
+        }
+      ]
+    },
+    {
+      "targetColor": {"r": 0.5, "g": 0.5, "b": 0},
+      "blocks": ["LIQUID", "ADDER", "INVERTOR", "MIXER", "CORNER"],
+      "liquids": [{"r": 0, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 1}],
+      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "locked": [{"type": "INVERTOR", "x": 6, "y": 1}]
+    },
+    {
+      "targetColor": {"r": 0.9, "g": 0.9, "b": 0.4},
+      "blocks": ["LIQUID", "ADDER", "MIXER", "CORNER"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 1, "b": 1},{"r": 0.7, "g": 0.7, "b": 0.7},{"r": 0.4, "g": 0.4, "b": 0.4}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "locked": [{"type": "MIXER", "x": 5, "y": 1}]
+    },
+    {
+      "targetColor": {"r": 0.75, "g": 0.5, "b": 0.75},
+      "blocks": ["LIQUID", "MIXER", "CORNER", "HOR_PIPE"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 1, "b": 1},{"r": 0.7, "g": 0.7, "b": 0.7},{"r": 0.4, "g": 0.4, "b": 0.4}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "tutorials": [
+        {
+          "text": "If you mix a lot, you will need horizontal pipe for blocks to keep place",
+          "x": 144,
+          "y": 870
+        }
+      ]
     }
   ]
 }

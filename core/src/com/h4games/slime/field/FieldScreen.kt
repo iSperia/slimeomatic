@@ -1,13 +1,16 @@
 package com.h4games.slime.field
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.h4games.slime.AbstractScreen
 import com.h4games.slime.GameContext
 import com.h4games.slime.SlimeMachineGame
 import com.h4games.slime.field.panel.PanelActor
+import com.h4games.slime.level.LevelChooseScreen
 import com.h4games.slime.level.LevelConfig
 import kotlin.math.abs
 
@@ -22,17 +25,24 @@ class FieldScreen(
 
     lateinit var panel: PanelActor
 
+    lateinit var music: Music
+
     val clickProcessor = object : InputProcessor {
 
         private var downTimestamp = 0L
         private var clickX: Int = 0
         private var clickY: Int = 0
 
-        override fun keyDown(keycode: Int): Boolean = false
+        override fun keyDown(keycode: Int): Boolean {
+            if (keycode == Input.Keys.ESCAPE) {
+                game.screen = LevelChooseScreen(context, game)
+                return true
+            }
+            return false
+        }
 
         override fun keyUp(keycode: Int): Boolean = false
-
-        override fun keyTyped(character: Char): Boolean = false
+        override fun keyTyped(character: Char) = false
 
         override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
             if (button == 0 || button == 1) {
@@ -52,6 +62,7 @@ class FieldScreen(
                 if (stamp - downTimestamp < 0.5f && abs(x - clickX) < 10f && abs(y - clickY) < 10f) {
                     val availabilityResult = field.isAreaAvailable(x, y)
                     if (availabilityResult.available) {
+                        context.sound("drill").play()
                         field.createBlock(availabilityResult.x, availabilityResult.y, panel.blockType)
                     }
                 }
@@ -93,5 +104,14 @@ class FieldScreen(
         }
         stage.addActor(panel)
 
+        music = context.music("ambient").apply {
+            isLooping = true
+            play()
+        }
+    }
+
+    override fun hide() {
+        super.hide()
+        music.stop()
     }
 }

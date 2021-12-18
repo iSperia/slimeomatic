@@ -12,7 +12,7 @@ import ktx.actors.onClick
 import ktx.actors.repeatForever
 
 enum class BlockType {
-    LIQUID, CORNER, MIXER, INVERTOR, ADDER, REMOVER
+    LIQUID, CORNER, MIXER, INVERTOR, ADDER, REMOVER, HOR_PIPE
 }
 
 /**
@@ -34,6 +34,7 @@ class PanelActor(
     val invertor = InvertorActor(context, 96f)
     val adder = ModificatorActor(context, 96f, true, listOf(Color.WHITE))
     val remover = ModificatorActor(context, 96f, false, listOf(Color.WHITE))
+    val horPipe = HorizontalPipeActor(context, 96f)
 
     var blockType: BlockType = BlockType.CORNER
 
@@ -48,6 +49,7 @@ class PanelActor(
                 BlockType.INVERTOR -> invertor
                 BlockType.CORNER -> cornerSource
                 BlockType.MIXER -> mixer
+                BlockType.HOR_PIPE -> horPipe
             }
             block.x = (PANEL_SIZE - 96f) / 2f
             block.y = Gdx.graphics.height - PANEL_SIZE * (index + 1) + (PANEL_SIZE - 96f) / 2f
@@ -60,11 +62,13 @@ class PanelActor(
         invertor.onClick { setFocusType(BlockType.INVERTOR) }
         adder.onClick { setFocusType(BlockType.ADDER) }
         remover.onClick { setFocusType(BlockType.REMOVER) }
+        horPipe.onClick { setFocusType(BlockType.HOR_PIPE) }
 
         setFocusType(BlockType.LIQUID)
     }
 
     private fun setFocusType(blockType: BlockType) {
+        context.sound("switch").play()
         if (this.blockType != blockType) {
             when (this.blockType) {
                 BlockType.LIQUID -> blockLiquidSource.clearActions()
@@ -73,6 +77,7 @@ class PanelActor(
                 BlockType.INVERTOR -> invertor.clearActions()
                 BlockType.ADDER -> adder.clearActions()
                 BlockType.REMOVER -> remover.clearActions()
+                BlockType.HOR_PIPE -> horPipe.clearActions()
             }
             this.blockType = blockType
             when (this.blockType) {
@@ -82,6 +87,7 @@ class PanelActor(
                 BlockType.INVERTOR -> invertor
                 BlockType.ADDER -> adder
                 BlockType.REMOVER -> remover
+                BlockType.HOR_PIPE -> horPipe
             }.let { blockActor ->
                 blockActor.addAction(SequenceAction(
                     ScaleToAction().apply {

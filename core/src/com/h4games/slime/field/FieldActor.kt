@@ -12,12 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.h4games.slime.ColbaActor
 import com.h4games.slime.GameContext
 import com.h4games.slime.SlimeMachineGame
 import com.h4games.slime.field.blocks.*
 import com.h4games.slime.field.panel.BlockType
+import com.h4games.slime.field.panel.PanelActor
 import com.h4games.slime.level.LevelChooseScreen
 import com.h4games.slime.level.LevelConfig
 import kotlinx.coroutines.delay
@@ -66,11 +68,14 @@ class FieldActor(
     val blocksMap = mutableMapOf<Pair<Int, Int>, BlockActor>()
     val lockedCoords = mutableSetOf<Pair<Int, Int>>()
 
+    val tutorials = Group()
+
     init {
         OBJECT_SIZE = (Gdx.graphics.width - 133f) / 11f
         addActor(animations)
         addActor(blocks)
         addActor(warnings)
+        addActor(tutorials)
 
         val baseBlock = SlimeFactoryActor(context).apply {
             x = (Gdx.graphics.width - 133f - BASE_WIDTH) / 2f
@@ -94,6 +99,7 @@ class FieldActor(
         blocks.addActor(launcher)
         launcher.onClick {
             KtxAsync.launch {
+                context.sound("lever").play()
                 launcher.launcherStick.addAction(
                     SequenceAction(RotateByAction().apply {
                         amount = -90f
@@ -118,11 +124,20 @@ class FieldActor(
             createBlock(lockConfig.x, lockConfig.y, lockConfig.type)
             lockedCoords.add(Pair(lockConfig.x, lockConfig.y))
         }
+
+        level.tutorials?.forEach {
+            val text = Label(it.text, context.tutorialStyle).apply {
+                x = it.x.toFloat()
+                y = it.y.toFloat()
+            }
+            tutorials.addActor(text)
+        }
     }
 
     private fun attemptLaunchMachine(baseBlock: SlimeFactoryActor) {
         val warnings = validateBlocks()
         if (warnings.isNotEmpty()) {
+            context.sound("error").play()
             shake(launcher)
             launcher.launcherStick.addAction(RotateByAction().apply {
                 amount = 90f
@@ -160,9 +175,9 @@ class FieldActor(
                 })
             }
         } else {
-            val targetColor = calculateColor(5, -1)
+            val targetColor = calculateColor(5, -1, 0)
 
-            val meta = animateLiquid(5, 0)
+            val meta = animateLiquid(5, 0, 0)
             launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_working")))
             KtxAsync.launch {
                 delay(meta.delay)
@@ -188,6 +203,7 @@ class FieldActor(
                 if (meta.color != this@FieldActor.targetColor) {
                     colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_red")))
                     shake(colba)
+                    context.sound("error").play()
                     delay(2000L)
                     door.closeDoor()
                     delay(300L)
@@ -196,7 +212,7 @@ class FieldActor(
                     rechargeLiquidSources()
                 } else {
                     colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_green")))
-                    //TODO: end the level
+                    context.sound("fanfare").play()
                     delay(2000L)
                     game.markLevelComplete(levelIndex)
                     game.screen = LevelChooseScreen(context, game)
@@ -238,11 +254,11 @@ class FieldActor(
         super.act(delta)
         val x = Gdx.input.x
         val y = Gdx.input.y
-        if (x < Gdx.graphics.width - 144f) {
+        if (x < Gdx.graphics.width - PanelActor.PANEL_SIZE) {
             val inputCoords = screenToLocalCoordinates(Vector2(x.toFloat(), y.toFloat()))
             val xx = (inputCoords.x / OBJECT_SIZE).toInt()
             val yy = ((inputCoords.y - BASELINE) / OBJECT_SIZE).toInt()
-            if (!blocksMap.containsKey(Pair(xx, yy))) {
+            if (!blocksMap.containsKey(Pair(xx, yy)) && inputCoords.y >= BASELINE) {
                 cursor?.let { it.remove() }
                 cursor = Image(context.texture("cursor_ok")).apply {
                     this.x = xx * OBJECT_SIZE
@@ -280,6 +296,7 @@ class FieldActor(
             BlockType.INVERTOR -> InvertorActor(context, OBJECT_SIZE)
             BlockType.ADDER -> ModificatorActor(context, OBJECT_SIZE, true, level.adders.map { Color(it.r, it.g, it.b, 1f) })
             BlockType.REMOVER -> ModificatorActor(context, OBJECT_SIZE, false, level.removers.map { Color(it.r, it.g, it.b, 1f) })
+            BlockType.HOR_PIPE -> HorizontalPipeActor(context, OBJECT_SIZE)
         }.let {
             blocks.addActor(it)
             placeBlock(it, x, y)
@@ -300,6 +317,7 @@ class FieldActor(
                     actor.remove()
                 }
                 blocksMap.remove(coords)
+                context.sound("destroy").play()
             }
         }
     }
@@ -336,12 +354,17 @@ class FieldActor(
                     if (!checkBlockExists(xy.first, xy.second + 1))  result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second + 1))
                     if (!checkBlockExists(xy.first, xy.second - 1))  result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second - 1))
                 }
+                is HorizontalPipeActor -> {
+                    if (!checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
+                    if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
+                }
             }
         }
         return result
     }
 
     private fun showLiquidAnimation(x: Int, y: Int, color: Color) {
+        context.sound("water_flow").play()
         val animation = AnimatedActor(context, "liquid_source_anim", 1/6f).apply {
             this.x = x * OBJECT_SIZE
             this.y = BASELINE + y * OBJECT_SIZE
@@ -353,6 +376,7 @@ class FieldActor(
     }
 
     private fun showPipeAnimationBottom(x: Int, y: Int, color: Color) {
+        context.sound("water_flow").play()
         val animation = AnimatedActor(context, "vpipe", 1/6f).apply {
             this.x = x * OBJECT_SIZE + OBJECT_SIZE * 25f / 72f
             this.y = BASELINE + y * OBJECT_SIZE - OBJECT_SIZE * 21f / 72f
@@ -380,7 +404,7 @@ class FieldActor(
         val color: Color
     )
 
-    fun animateLiquid(x: Int, y: Int): AnimationMetadata {
+    fun animateLiquid(x: Int, y: Int, dx: Int): AnimationMetadata {
         val block: BlockActor = blocksMap[Pair(x,y)]!!
         return when (block) {
             is LiquidSourceActor -> {
@@ -390,8 +414,8 @@ class FieldActor(
                 AnimationMetadata(LIQUID_STEP_LENGTH_MILLIS, block.colors[block.colorActiveIndex])
             }
             is MixerActor -> {
-                val meta1 = animateLiquid(x - 1, y)
-                val meta2 = animateLiquid(x + 1, y)
+                val meta1 = animateLiquid(x - 1, y, -1)
+                val meta2 = animateLiquid(x + 1, y, 1)
                 val c1 = meta1.color
                 val c2 = meta2.color
                 val c = Color((c1.r + c2.r) / 2f, (c1.g + c2.g) /2f, (c1.b + c2.b) / 2f, 1f)
@@ -402,7 +426,7 @@ class FieldActor(
                 AnimationMetadata(max(meta1.delay, meta2.delay) + 1400, c)
             }
             is CornerActor -> {
-                val metadata = animateLiquid(x, y + 1)
+                val metadata = animateLiquid(x, y + 1, 0)
                 KtxAsync.launch {
                     delay(metadata.delay)
                     showPipeAnimationHorizontal(x, y, metadata.color, block.bottomLeft == false)
@@ -410,7 +434,7 @@ class FieldActor(
                 AnimationMetadata(metadata.delay + 1400, metadata.color)
             }
             is InvertorActor -> {
-                val metadata = animateLiquid(x, y + 1)
+                val metadata = animateLiquid(x, y + 1, 0)
                 val c = metadata.color
                 val invertedColor = Color(1f - c.r, 1f - c.g, 1f - c.b, 1f)
                 KtxAsync.launch {
@@ -420,7 +444,7 @@ class FieldActor(
                 AnimationMetadata(metadata.delay + 1400, invertedColor)
             }
             is ModificatorActor -> {
-                val metadata = animateLiquid(x, y + 1)
+                val metadata = animateLiquid(x, y + 1, 0)
                 val c = metadata.color
                 val c2 = operateModificator(block, c)
                 KtxAsync.launch {
@@ -429,29 +453,40 @@ class FieldActor(
                 }
                 AnimationMetadata(metadata.delay + 1400, c2)
             }
+            is HorizontalPipeActor -> {
+                val metadata = animateLiquid(x + dx, y, dx)
+                KtxAsync.launch {
+                    delay(metadata.delay)
+                    showPipeAnimationHorizontal(x, y, metadata.color, dx > 0)
+                }
+                AnimationMetadata(metadata.delay + 1400, metadata.color)
+            }
             else -> throw IllegalStateException("Unknown block")
         }
     }
 
     //We assume everything is validated and working
-    fun calculateColor(x: Int, y: Int): Color {
-        if (x == 5 && y == -1) return calculateColor(x, y + 1)
+    fun calculateColor(x: Int, y: Int, dx: Int): Color {
+        if (x == 5 && y == -1) return calculateColor(x, y + 1, 0)
         val block = blocksMap[Pair(x,y)]!!
         return when (block) {
             is LiquidSourceActor -> block.colors[block.colorActiveIndex]
             is MixerActor -> {
-                val c1 = calculateColor(x - 1, y)
-                val c2 = calculateColor(x + 1, y)
+                val c1 = calculateColor(x - 1, y, -1)
+                val c2 = calculateColor(x + 1, y, 1)
                 Color((c1.r + c2.r) / 2f, (c1.g + c2.g) /2f, (c1.b + c2.b) / 2f, 1f)
             }
-            is CornerActor -> return calculateColor(x, y + 1)
+            is CornerActor -> return calculateColor(x, y + 1, 0)
             is InvertorActor -> {
-                val c = calculateColor(x, y + 1)
+                val c = calculateColor(x, y + 1, 0)
                 Color(1f - c.r, 1f - c.g, 1f - c.b, 1f)
             }
             is ModificatorActor -> {
-                val c = calculateColor(x, y + 1)
+                val c = calculateColor(x, y + 1, 0)
                 operateModificator(block, c)
+            }
+            is HorizontalPipeActor -> {
+                calculateColor(x + dx, y, dx)
             }
             else -> throw IllegalStateException("Unknown block")
         }

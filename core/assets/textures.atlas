@@ -48,7 +48,7 @@ block_invertor
   index: -1
 block_remover
   rotate: false
-  xy: 353, 674
+  xy: 1957, 1816
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -107,6 +107,13 @@ garage
   xy: 473, 1063
   size: 438, 251
   orig: 438, 251
+  offset: 0, 0
+  index: -1
+hor_pipe
+  rotate: false
+  xy: 143, 130
+  size: 72, 72
+  orig: 72, 72
   offset: 0, 0
   index: -1
 hpipe
@@ -209,7 +216,7 @@ liquid_source_anim
   index: 2
 liquid_source_anim
   rotate: false
-  xy: 248, 402
+  xy: 353, 674
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -237,14 +244,14 @@ slime
   index: -1
 test_bottom
   rotate: false
-  xy: 1957, 1816
+  xy: 248, 328
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 test_corner_bottom_left
   rotate: false
-  xy: 143, 130
+  xy: 248, 402
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
