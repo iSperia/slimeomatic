@@ -8,7 +8,8 @@ import ktx.actors.onClick
 class ModificatorActor(
     context: GameContext,
     size: Float,
-    val isAdder: Boolean
+    val isAdder: Boolean,
+    val colors: List<Color>
 ) : BlockActor(context, size, if (isAdder) "block_adder" else "block_remover") {
     lateinit var liquidImage: Image
 
@@ -22,7 +23,7 @@ class ModificatorActor(
         liquidImage = Image(context.texture("modificator_color")).apply {
             width = size
             height = size
-            color = ModificatorActor.COLORS[colorActiveIndex]
+            color = colors[colorActiveIndex]
         }
         addActor(liquidImage)
     }
@@ -37,13 +38,8 @@ class ModificatorActor(
         }
         addActor(refreshButton)
         refreshButton.onClick {
-            colorActiveIndex = (colorActiveIndex + 1) % ModificatorActor.COLORS.size
-            liquidImage.color = ModificatorActor.COLORS[colorActiveIndex]
+            colorActiveIndex = (colorActiveIndex + 1) % colors.size
+            liquidImage.color = colors[colorActiveIndex]
         }
     }
-
-    companion object {
-        val COLORS = listOf<Color>(Color.RED, Color.GREEN, Color.BLUE)
-    }
-
 }

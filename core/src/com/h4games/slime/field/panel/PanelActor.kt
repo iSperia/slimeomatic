@@ -1,6 +1,7 @@
 package com.h4games.slime.field.panel
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
@@ -27,12 +28,12 @@ class PanelActor(
         height = Gdx.graphics.height.toFloat()
     }
 
-    val blockLiquidSource = LiquidSourceActor(context, 96f)
+    val blockLiquidSource = LiquidSourceActor(context, 96f, listOf(Color.WHITE))
     val cornerSource = CornerActor(context, 96f, true)
     val mixer = MixerActor(context, 96f)
     val invertor = InvertorActor(context, 96f)
-    val adder = ModificatorActor(context, 96f, true)
-    val remover = ModificatorActor(context, 96f, false)
+    val adder = ModificatorActor(context, 96f, true, listOf(Color.WHITE))
+    val remover = ModificatorActor(context, 96f, false, listOf(Color.WHITE))
 
     var blockType: BlockType = BlockType.CORNER
 

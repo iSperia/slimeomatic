@@ -40,7 +40,7 @@ class LevelChooseScreen(
         config.levels.forEachIndexed { index, level ->
             val xx = index % 16
             val yy = index / 16
-            val levelActor = LevelChooseActor(context, Color(level.r, level.g, level.b, 1f), index > game.progress.maxLevelComplete + 1, index == game.progress.maxLevelComplete + 1).apply {
+            val levelActor = LevelChooseActor(context, level.targetColor.let { Color(it.r, it.g, it.b, 1f)}, index > game.progress.maxLevelComplete + 1, index == game.progress.maxLevelComplete + 1).apply {
                 x = xx * 100f
                 y = yy * 100f
             }

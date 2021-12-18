@@ -85,7 +85,7 @@ class FieldScreen(
         }
         stage.addActor(bg)
 
-        field = FieldActor(context, Color(level.r, level.g, level.b, 1f), game, levelIndex)
+        field = FieldActor(context, level.targetColor.let { Color(it.r, it.g, it.b, 1f) }, game, levelIndex, level)
         stage.addActor(field)
 
         panel = PanelActor(context, level.blocks).apply {

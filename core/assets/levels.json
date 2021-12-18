@@ -1,22 +1,47 @@
 {
   "levels": [
     {
-      "r": 0,
-      "g": 1,
-      "b": 1,
-      "blocks": ["LIQUID"]
+      "targetColor": {"r": 0, "g": 1, "b": 1},
+      "blocks": ["LIQUID"],
+      "liquids": [{"r": 0, "g": 1, "b": 1}],
+      "adders": [{"r": 0, "g": 1, "b": 1}],
+      "removers": [{"r": 0, "g": 1, "b": 1}]
     },
     {
-      "r": 1,
-      "g": 0,
-      "b": 1,
-      "blocks": ["LIQUID"]
+      "targetColor": {"r": 1, "g": 1, "b": 0},
+      "blocks": ["LIQUID"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 0, "g": 1, "b": 1}],
+      "removers": [{"r": 0, "g": 1, "b": 1}]
     },
     {
-      "r": 1,
-      "g": 0,
-      "b": 0,
-      "blocks": ["LIQUID", "INVERTOR"]
+      "targetColor": {"r": 1, "g": 0, "b": 1},
+      "blocks": ["LIQUID", "ADDER"],
+      "liquids": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "adders": [{"r": 1, "g": 0, "b": 0}],
+      "removers": [{"r": 0, "g": 1, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 1, "g": 0, "b": 0},
+      "blocks": ["LIQUID", "ADDER"],
+      "liquids": [{"r": 0, "g": 0.5, "b": 0},{"r": 0, "g": 0, "b": 0.5},{"r": 0.5, "g": 0, "b": 0}],
+      "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
+      "removers": [{"r": 0, "g": 1, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 0, "g": 1, "b": 1},
+      "blocks": ["LIQUID", "ADDER"],
+      "liquids": [{"r": 0.5, "g": 0, "b": 0},{"r": 0, "g": 0.5, "b": 0},{"r": 0, "g": 0, "b": 0.5}],
+      "adders": [{"r": 0.5, "g": 0, "b": 0}, {"r": 0, "g": 0, "b": 0.5}, {"r": 0, "g": 0.5, "b": 0}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "locked": [{"type": "ADDER", "x": 5, "y": 1}]
+    },
+    {
+      "targetColor": {"r": 1, "g": 0.5, "b": 0.5},
+      "blocks": ["LIQUID", "MIXER", "CORNER"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
+      "removers": [{"r": 0, "g": 1, "b": 1}]
     }
   ]
 }

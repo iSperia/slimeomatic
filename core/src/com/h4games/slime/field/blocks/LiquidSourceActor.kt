@@ -7,7 +7,8 @@ import ktx.actors.onClick
 
 class LiquidSourceActor(
     context: GameContext,
-    size: Float
+    size: Float,
+    val colors: List<Color>
 ) : BlockActor(context, size, "test_bottom") {
 
     lateinit var liquidImage: Image
@@ -22,7 +23,7 @@ class LiquidSourceActor(
         liquidImage = Image(context.texture("test_liquid")).apply {
             width = size
             height = size
-            color = COLORS[colorActiveIndex]
+            color = colors[colorActiveIndex]
         }
         background.addActor(liquidImage)
     }
@@ -45,12 +46,8 @@ class LiquidSourceActor(
         }
         foreground.addActor(refreshButton)
         refreshButton.onClick {
-            colorActiveIndex = (colorActiveIndex + 1) % COLORS.size
-            liquidImage.color = COLORS[colorActiveIndex]
+            colorActiveIndex = (colorActiveIndex + 1) % colors.size
+            liquidImage.color = colors[colorActiveIndex]
         }
-    }
-
-    companion object {
-        val COLORS = listOf<Color>(Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.BLACK, Color.WHITE)
     }
 }

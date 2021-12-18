@@ -19,6 +19,7 @@ import com.h4games.slime.SlimeMachineGame
 import com.h4games.slime.field.blocks.*
 import com.h4games.slime.field.panel.BlockType
 import com.h4games.slime.level.LevelChooseScreen
+import com.h4games.slime.level.LevelConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
@@ -46,7 +47,8 @@ class FieldActor(
     private val context: GameContext,
     private val targetColor: Color,
     private val game: SlimeMachineGame,
-    private val levelIndex: Int
+    private val levelIndex: Int,
+    private val level: LevelConfig
 ) : Group() {
 
     val animations = Group()
@@ -62,6 +64,7 @@ class FieldActor(
     val warnings = Group()
 
     val blocksMap = mutableMapOf<Pair<Int, Int>, BlockActor>()
+    val lockedCoords = mutableSetOf<Pair<Int, Int>>()
 
     init {
         OBJECT_SIZE = (Gdx.graphics.width - 133f) / 11f
@@ -110,6 +113,11 @@ class FieldActor(
             y = baseBlock.y - 5f
         }
         blocks.addActor(colba)
+
+        level.locked?.forEach { lockConfig ->
+            createBlock(lockConfig.x, lockConfig.y, lockConfig.type)
+            lockedCoords.add(Pair(lockConfig.x, lockConfig.y))
+        }
     }
 
     private fun attemptLaunchMachine(baseBlock: SlimeFactoryActor) {
@@ -268,10 +276,10 @@ class FieldActor(
         when (blockType) {
             BlockType.MIXER -> MixerActor(context, OBJECT_SIZE)
             BlockType.CORNER -> CornerActor(context, OBJECT_SIZE, true)
-            BlockType.LIQUID -> LiquidSourceActor(context, OBJECT_SIZE)
+            BlockType.LIQUID -> LiquidSourceActor(context, OBJECT_SIZE, level.liquids.map { Color(it.r, it.g, it.b, 1f) })
             BlockType.INVERTOR -> InvertorActor(context, OBJECT_SIZE)
-            BlockType.ADDER -> ModificatorActor(context, OBJECT_SIZE, true)
-            BlockType.REMOVER -> ModificatorActor(context, OBJECT_SIZE, false)
+            BlockType.ADDER -> ModificatorActor(context, OBJECT_SIZE, true, level.adders.map { Color(it.r, it.g, it.b, 1f) })
+            BlockType.REMOVER -> ModificatorActor(context, OBJECT_SIZE, false, level.removers.map { Color(it.r, it.g, it.b, 1f) })
         }.let {
             blocks.addActor(it)
             placeBlock(it, x, y)
@@ -280,10 +288,12 @@ class FieldActor(
     }
 
     fun processRemoveBlock(x: Int, y: Int) {
+
         if (x < Gdx.graphics.width - 144f) {
             val inputCoords = screenToLocalCoordinates(Vector2(x.toFloat(), y.toFloat()))
             val xx = (inputCoords.x / OBJECT_SIZE).toInt()
             val yy = ((inputCoords.y - BASELINE) / OBJECT_SIZE).toInt()
+            if (lockedCoords.contains(Pair(xx, yy))) return
             if (xx >= 0 && yy >= 0) {
                 val coords = Pair(xx, yy)
                 blocksMap[coords]?.let { actor ->
@@ -375,9 +385,9 @@ class FieldActor(
         return when (block) {
             is LiquidSourceActor -> {
                 block.hideLiquid()
-                showLiquidAnimation(x, y, LiquidSourceActor.COLORS[block.colorActiveIndex])
-                showPipeAnimationBottom(x, y, LiquidSourceActor.COLORS[block.colorActiveIndex])
-                AnimationMetadata(LIQUID_STEP_LENGTH_MILLIS, LiquidSourceActor.COLORS[block.colorActiveIndex])
+                showLiquidAnimation(x, y, block.colors[block.colorActiveIndex])
+                showPipeAnimationBottom(x, y, block.colors[block.colorActiveIndex])
+                AnimationMetadata(LIQUID_STEP_LENGTH_MILLIS, block.colors[block.colorActiveIndex])
             }
             is MixerActor -> {
                 val meta1 = animateLiquid(x - 1, y)
@@ -428,7 +438,7 @@ class FieldActor(
         if (x == 5 && y == -1) return calculateColor(x, y + 1)
         val block = blocksMap[Pair(x,y)]!!
         return when (block) {
-            is LiquidSourceActor -> LiquidSourceActor.COLORS[block.colorActiveIndex]
+            is LiquidSourceActor -> block.colors[block.colorActiveIndex]
             is MixerActor -> {
                 val c1 = calculateColor(x - 1, y)
                 val c2 = calculateColor(x + 1, y)
@@ -452,16 +462,16 @@ class FieldActor(
         c: Color
     ) = if (block.isAdder) {
         Color(
-            min(1f, ModificatorActor.COLORS[block.colorActiveIndex].r + c.r),
-            min(1f, ModificatorActor.COLORS[block.colorActiveIndex].g + c.g),
-            min(1f, ModificatorActor.COLORS[block.colorActiveIndex].b + c.b),
+            min(1f, block.colors[block.colorActiveIndex].r + c.r),
+            min(1f, block.colors[block.colorActiveIndex].g + c.g),
+            min(1f, block.colors[block.colorActiveIndex].b + c.b),
             1f
         )
     } else {
         Color(
-            max(0f, -ModificatorActor.COLORS[block.colorActiveIndex].r + c.r),
-            max(0f, -ModificatorActor.COLORS[block.colorActiveIndex].g + c.g),
-            max(0f, -ModificatorActor.COLORS[block.colorActiveIndex].b + c.b),
+            max(0f, -block.colors[block.colorActiveIndex].r + c.r),
+            max(0f, -block.colors[block.colorActiveIndex].g + c.g),
+            max(0f, -block.colors[block.colorActiveIndex].b + c.b),
             1f
         )
     }
