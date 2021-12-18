@@ -31,6 +31,10 @@ class LiquidSourceActor(
         background.isVisible = false
     }
 
+    fun showLiquid() {
+        background.isVisible = true
+    }
+
     override fun initForeground() {
         super.initForeground()
         refreshButton = Image(context.texture("test_refresh")).apply {

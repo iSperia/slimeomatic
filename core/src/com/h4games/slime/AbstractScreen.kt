@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 
 abstract class AbstractScreen(
-    private val context: GameContext
+    protected val context: GameContext
 ) : Screen {
 
     protected val stage = Stage(ScreenViewport())

@@ -3,22 +3,32 @@ package com.h4games.slime.field
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.h4games.slime.ColbaActor
 import com.h4games.slime.GameContext
+import com.h4games.slime.SlimeMachineGame
 import com.h4games.slime.field.blocks.*
 import com.h4games.slime.field.panel.BlockType
+import com.h4games.slime.level.LevelChooseScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
+import ktx.actors.repeat
+import ktx.actors.repeatForever
 import ktx.async.KtxAsync
+import java.lang.IllegalStateException
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.random.Random
 
 data class AreaAvailabilityResult(
     val x: Int,
@@ -26,17 +36,26 @@ data class AreaAvailabilityResult(
     val available: Boolean
 )
 
+private val LIQUID_STEP_LENGTH_MILLIS = 700L
+
 /**
  * Something that draws the field blocks and slime bases, and controls
  * It scrolls and scales
  */
 class FieldActor(
-    private val context: GameContext
+    private val context: GameContext,
+    private val targetColor: Color,
+    private val game: SlimeMachineGame,
+    private val levelIndex: Int
 ) : Group() {
 
     val animations = Group()
     val blocks = Group()
+    val slimes = Group()
     var cursor: Image? = null
+    lateinit var door: DoorActor
+    lateinit var launcher: LauncherActor
+    lateinit var colba: ColbaActor
 
     var slime: Image? = null
 
@@ -45,57 +64,161 @@ class FieldActor(
     val blocksMap = mutableMapOf<Pair<Int, Int>, BlockActor>()
 
     init {
+        OBJECT_SIZE = (Gdx.graphics.width - 133f) / 11f
         addActor(animations)
         addActor(blocks)
         addActor(warnings)
 
         val baseBlock = SlimeFactoryActor(context).apply {
-            x = OBJECT_SIZE * 4f
+            x = (Gdx.graphics.width - 133f - BASE_WIDTH) / 2f
             y = 0f
         }
         blocks.addActor(baseBlock)
 
-        val launcherBlock = Button(
-            context.texture("launcher_off").let { TextureRegionDrawable(it) },
-            context.texture("launcher_on").let { TextureRegionDrawable(it) }
-        ).apply {
-            x = baseBlock.x - OBJECT_SIZE * 2f
-            y = 0f
+        blocks.addActor(slimes)
+
+        door = DoorActor(context).apply {
+            x = baseBlock.x + 125f
+            width = 177f
+            height = 142f
         }
-        launcherBlock.onClick {
-            val warnings = validateBlocks()
-            if (warnings.isNotEmpty()) {
-                warnings.forEach { coords ->
-                    val warningImage = Image(context.texture("warning")).apply {
-                        width = OBJECT_SIZE / 2f
-                        height = OBJECT_SIZE / 2f
-                        x = coords.x - width / 2f
-                        y = coords.y - height  / 2f
-                    }
-                    this@FieldActor.warnings.addActor(warningImage)
-                    warningImage.addAction(DelayAction(1f).apply {
-                        action = RunnableAction().apply {
-                            setRunnable {
-                                warningImage.remove()
-                            }
+        blocks.addActor(door)
+
+        launcher = LauncherActor(context).apply {
+            x = baseBlock.x - 200f
+            y = 6f
+        }
+        blocks.addActor(launcher)
+        launcher.onClick {
+            KtxAsync.launch {
+                launcher.launcherStick.addAction(
+                    SequenceAction(RotateByAction().apply {
+                        amount = -90f
+                        duration = 0.2f
+                    },
+                    RunnableAction().apply {
+                        setRunnable {
+                            attemptLaunchMachine(baseBlock)
                         }
                     })
-                }
-            } else {
-                val targetColor = calculateColor(5, -1)
-                slime?.let { it.remove() }
-                slime = Image(context.texture("slime")).apply {
-                    width = OBJECT_SIZE * 1.2f
-                    height = OBJECT_SIZE * 1.2f
-                    x = baseBlock.x + OBJECT_SIZE
-                    y = baseBlock.y
-                    color = targetColor
-                }
-                addActor(slime)
-                animateLiquid(5, 0)
+                )
             }
         }
-        blocks.addActor(launcherBlock)
+
+        colba = ColbaActor(context, targetColor).apply {
+            x = baseBlock.x + 520f
+            y = baseBlock.y - 5f
+        }
+        blocks.addActor(colba)
+    }
+
+    private fun attemptLaunchMachine(baseBlock: SlimeFactoryActor) {
+        val warnings = validateBlocks()
+        if (warnings.isNotEmpty()) {
+            shake(launcher)
+            launcher.launcherStick.addAction(RotateByAction().apply {
+                amount = 90f
+                duration = 0.25f
+            })
+            KtxAsync.launch {
+                delay(250L)
+                launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_error")))
+                delay(1000L)
+                launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_off")))
+            }
+            warnings.forEach { coords ->
+                val warningImage = Image(context.texture("warning")).apply {
+                    width = OBJECT_SIZE / 2f
+                    height = OBJECT_SIZE / 2f
+                    x = coords.x - width / 2f
+                    y = coords.y - height / 2f
+                }
+                warningImage.addAction(
+                    SequenceAction(
+                        DelayAction(0.05f),
+                        RunnableAction().apply { setRunnable { warningImage.isVisible = false } },
+                        DelayAction(0.05f),
+                        RunnableAction().apply { setRunnable { warningImage.isVisible = true } }
+                    ).repeat(10)
+                )
+                this@FieldActor.warnings.addActor(warningImage)
+                warningImage.addAction(DelayAction(1f).apply {
+                    action = RunnableAction().apply {
+                        setRunnable {
+                            warningImage.clearActions()
+                            warningImage.remove()
+                        }
+                    }
+                })
+            }
+        } else {
+            val targetColor = calculateColor(5, -1)
+
+            val meta = animateLiquid(5, 0)
+            launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_working")))
+            KtxAsync.launch {
+                delay(meta.delay)
+                launcher.launcherStick.addAction(RotateByAction().apply {
+                    amount = 90f
+                    duration = 0.25f
+                })
+                delay(250L)
+                launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_off")))
+
+                door.openDoor()
+                //Add slime
+                slime?.let { it.remove() }
+                slime = Image(context.texture("slime")).apply {
+                    width = 144f
+                    height = 144f
+                    x = baseBlock.x + 145f
+                    y = baseBlock.y + 10f
+                    color = targetColor
+                }
+                slimes.addActor(slime)
+
+                if (meta.color != this@FieldActor.targetColor) {
+                    colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_red")))
+                    shake(colba)
+                    delay(2000L)
+                    door.closeDoor()
+                    delay(300L)
+                    slime?.let { it.remove() }
+                    colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_empty")))
+                    rechargeLiquidSources()
+                } else {
+                    colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_green")))
+                    //TODO: end the level
+                    delay(2000L)
+                    game.markLevelComplete(levelIndex)
+                    game.screen = LevelChooseScreen(context, game)
+                }
+            }
+        }
+    }
+
+    private fun rechargeLiquidSources() {
+        blocksMap.forEach { xy, block ->
+            if (block is LiquidSourceActor) {
+                block.showLiquid()
+            }
+        }
+    }
+
+    private fun shake(target: Actor) {
+        val ox = target.x
+        val oy = target.y
+        target.addAction(
+            SequenceAction(
+                DelayAction(0.05f),
+                RunnableAction().apply {
+                    setRunnable {
+                        target.x = ox - 2f + 4f * Random.nextFloat()
+                        target.y = oy - 2f + 4f * Random.nextFloat()
+                    }
+                }
+            ).repeat(20)
+        )
     }
 
     fun placeBlock(block: BlockActor, x: Int, y: Int) {
@@ -209,7 +332,7 @@ class FieldActor(
     }
 
     private fun showLiquidAnimation(x: Int, y: Int, color: Color) {
-        val animation = AnimatedActor(context, "liquid_source_anim", 1/3f).apply {
+        val animation = AnimatedActor(context, "liquid_source_anim", 1/6f).apply {
             this.x = x * OBJECT_SIZE
             this.y = BASELINE + y * OBJECT_SIZE
             this.width = OBJECT_SIZE
@@ -220,7 +343,7 @@ class FieldActor(
     }
 
     private fun showPipeAnimationBottom(x: Int, y: Int, color: Color) {
-        val animation = AnimatedActor(context, "vpipe", 1/3f).apply {
+        val animation = AnimatedActor(context, "vpipe", 1/6f).apply {
             this.x = x * OBJECT_SIZE + OBJECT_SIZE * 25f / 72f
             this.y = BASELINE + y * OBJECT_SIZE - OBJECT_SIZE * 21f / 72f
             this.width = OBJECT_SIZE * 23f / 72f
@@ -231,7 +354,7 @@ class FieldActor(
     }
 
     private fun showPipeAnimationHorizontal(x: Int, y: Int, color: Color, inverted: Boolean) {
-        val animation = AnimatedActor(context, "hpipe", 1/3f).apply {
+        val animation = AnimatedActor(context, "hpipe", 1/6f).apply {
             this.x = x * OBJECT_SIZE + if (inverted) -20f / 72f * OBJECT_SIZE else OBJECT_SIZE - 20f / 72f * OBJECT_SIZE
             this.y = BASELINE + y * OBJECT_SIZE + OBJECT_SIZE * 24f / 72f
             this.width = OBJECT_SIZE * 44f / 72f
@@ -248,13 +371,13 @@ class FieldActor(
     )
 
     fun animateLiquid(x: Int, y: Int): AnimationMetadata {
-        val block = blocksMap[Pair(x,y)]!!
-        when (block) {
+        val block: BlockActor = blocksMap[Pair(x,y)]!!
+        return when (block) {
             is LiquidSourceActor -> {
                 block.hideLiquid()
                 showLiquidAnimation(x, y, LiquidSourceActor.COLORS[block.colorActiveIndex])
                 showPipeAnimationBottom(x, y, LiquidSourceActor.COLORS[block.colorActiveIndex])
-                return AnimationMetadata(1400L, LiquidSourceActor.COLORS[block.colorActiveIndex])
+                AnimationMetadata(LIQUID_STEP_LENGTH_MILLIS, LiquidSourceActor.COLORS[block.colorActiveIndex])
             }
             is MixerActor -> {
                 val meta1 = animateLiquid(x - 1, y)
@@ -266,7 +389,7 @@ class FieldActor(
                     delay(max(meta1.delay, meta2.delay))
                     showPipeAnimationBottom(x, y, c)
                 }
-                return AnimationMetadata(max(meta1.delay, meta2.delay) + 1400, c)
+                AnimationMetadata(max(meta1.delay, meta2.delay) + 1400, c)
             }
             is CornerActor -> {
                 val metadata = animateLiquid(x, y + 1)
@@ -274,7 +397,7 @@ class FieldActor(
                     delay(metadata.delay)
                     showPipeAnimationHorizontal(x, y, metadata.color, block.bottomLeft == false)
                 }
-                return AnimationMetadata(metadata.delay + 1400, metadata.color)
+                AnimationMetadata(metadata.delay + 1400, metadata.color)
             }
             is InvertorActor -> {
                 val metadata = animateLiquid(x, y + 1)
@@ -284,7 +407,7 @@ class FieldActor(
                     delay(metadata.delay)
                     showPipeAnimationBottom(x, y, invertedColor)
                 }
-                return AnimationMetadata(metadata.delay + 1400, invertedColor)
+                AnimationMetadata(metadata.delay + 1400, invertedColor)
             }
             is ModificatorActor -> {
                 val metadata = animateLiquid(x, y + 1)
@@ -294,33 +417,33 @@ class FieldActor(
                     delay(metadata.delay)
                     showPipeAnimationBottom(x, y, c2)
                 }
-                return AnimationMetadata(metadata.delay + 1400, c2)
+                AnimationMetadata(metadata.delay + 1400, c2)
             }
+            else -> throw IllegalStateException("Unknown block")
         }
-        return AnimationMetadata(0L, Color.CYAN)
     }
 
     //We assume everything is validated and working
     fun calculateColor(x: Int, y: Int): Color {
         if (x == 5 && y == -1) return calculateColor(x, y + 1)
         val block = blocksMap[Pair(x,y)]!!
-        when (block) {
-            is LiquidSourceActor -> return LiquidSourceActor.COLORS[block.colorActiveIndex]
+        return when (block) {
+            is LiquidSourceActor -> LiquidSourceActor.COLORS[block.colorActiveIndex]
             is MixerActor -> {
                 val c1 = calculateColor(x - 1, y)
                 val c2 = calculateColor(x + 1, y)
-                val c = Color((c1.r + c2.r) / 2f, (c1.g + c2.g) /2f, (c1.b + c2.b) / 2f, 1f)
-                return c
+                Color((c1.r + c2.r) / 2f, (c1.g + c2.g) /2f, (c1.b + c2.b) / 2f, 1f)
             }
             is CornerActor -> return calculateColor(x, y + 1)
             is InvertorActor -> {
                 val c = calculateColor(x, y + 1)
-                return Color(1f - c.r, 1f - c.g, 1f - c.b, 1f)
+                Color(1f - c.r, 1f - c.g, 1f - c.b, 1f)
             }
             is ModificatorActor -> {
                 val c = calculateColor(x, y + 1)
-                return operateModificator(block, c)
+                operateModificator(block, c)
             }
+            else -> throw IllegalStateException("Unknown block")
         }
     }
 
@@ -348,9 +471,9 @@ class FieldActor(
     }
 
     companion object Markup {
-        const val OBJECT_SIZE = 144f
-        const val BASE_WIDTH = OBJECT_SIZE * 3f
-        const val BASE_HEIGHT = OBJECT_SIZE * 3f
-        const val BASELINE = BASE_HEIGHT
+        var OBJECT_SIZE = 144f
+        const val BASE_WIDTH = 438f
+        const val BASE_HEIGHT = 251f
+        const val BASELINE = 262f
     }
 }

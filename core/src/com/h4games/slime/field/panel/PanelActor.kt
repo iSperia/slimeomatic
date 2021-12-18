@@ -1,5 +1,6 @@
 package com.h4games.slime.field.panel
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
@@ -17,10 +18,14 @@ enum class BlockType {
  * Something that allows some focus
  */
 class PanelActor(
-    private val context: GameContext
+    private val context: GameContext,
+    private val blocks: List<BlockType>
 ): Group() {
 
-    val image = Image(context.texture("test_panel"))
+    val image = Image(context.texture("test_panel")).apply {
+        width = PANEL_SIZE
+        height = Gdx.graphics.height.toFloat()
+    }
 
     val blockLiquidSource = LiquidSourceActor(context, 96f)
     val cornerSource = CornerActor(context, 96f, true)
@@ -34,9 +39,17 @@ class PanelActor(
     init {
         addActor(image)
 
-        listOf(blockLiquidSource, cornerSource, mixer, invertor, adder, remover).forEachIndexed { index, block ->
-            block.x = (133f - 96f) / 2f
-            block.y = 1000f - 133f * (index + 1) - (133f - 96f) / 2f
+        BlockType.values().filter { blocks.contains(it) }.forEachIndexed { index, blockType ->
+            val block = when (blockType) {
+                BlockType.LIQUID -> blockLiquidSource
+                BlockType.REMOVER -> remover
+                BlockType.ADDER -> adder
+                BlockType.INVERTOR -> invertor
+                BlockType.CORNER -> cornerSource
+                BlockType.MIXER -> mixer
+            }
+            block.x = (PANEL_SIZE - 96f) / 2f
+            block.y = Gdx.graphics.height - PANEL_SIZE * (index + 1) + (PANEL_SIZE - 96f) / 2f
             addActor(block)
         }
 
@@ -71,15 +84,19 @@ class PanelActor(
             }.let { blockActor ->
                 blockActor.addAction(SequenceAction(
                     ScaleToAction().apply {
-                        setScale(1.2f, 1.2f)
-                        duration = 0.1f
+                        setScale(1.03f, 1.03f)
+                        duration = 0.2f
                     },
                     ScaleToAction().apply {
-                        setScale(0.95f, 0.95f)
-                        duration = 0.1f
+                        setScale(0.97f, 0.97f)
+                        duration = 0.2f
                     }
                 ).repeatForever())
             }
         }
+    }
+
+    companion object {
+        const val PANEL_SIZE = 160f
     }
 }

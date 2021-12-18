@@ -1,14 +1,21 @@
 package com.h4games.slime.field
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.h4games.slime.AbstractScreen
 import com.h4games.slime.GameContext
+import com.h4games.slime.SlimeMachineGame
 import com.h4games.slime.field.panel.PanelActor
+import com.h4games.slime.level.LevelConfig
 import kotlin.math.abs
 
 class FieldScreen(
-    private val context: GameContext
+    context: GameContext,
+    private val level: LevelConfig,
+    private val game: SlimeMachineGame,
+    private val levelIndex: Int
 ) : AbstractScreen(context) {
 
     lateinit var field: FieldActor
@@ -72,13 +79,19 @@ class FieldScreen(
 
         inputMultiplexer.addProcessor(clickProcessor)
 
-        panel = PanelActor(context).apply {
-            x = 1600f - 133f
+        val bg = Image(context.texture("bg_screen")).apply {
+            width = Gdx.graphics.width.toFloat()
+            height = Gdx.graphics.height.toFloat()
+        }
+        stage.addActor(bg)
+
+        field = FieldActor(context, Color(level.r, level.g, level.b, 1f), game, levelIndex)
+        stage.addActor(field)
+
+        panel = PanelActor(context, level.blocks).apply {
+            x = Gdx.graphics.width - PanelActor.PANEL_SIZE
         }
         stage.addActor(panel)
-
-        field = FieldActor(context)
-        stage.addActor(field)
 
     }
 }
