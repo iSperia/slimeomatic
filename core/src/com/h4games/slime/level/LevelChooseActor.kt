@@ -15,15 +15,19 @@ class LevelChooseActor(
     private val isPulsing: Boolean
 ) : Group() {
 
-    val image = Image(context.texture("level")).apply {
-        x = 14f
-        y = 14f
+    val image = Image(context.texture("level_chooser_bg")).apply {
+        width = 100f
+        height = 100f
         color = targetColor
+    }
+    val fg = Image(context.texture("level_chooser_fg")).apply {
+        width = 100f
+        height = 100f
     }
 
     val lock = Image(context.texture("lock")).apply {
-        x = 14f
-        y = 14f
+        x = 19f
+        y = 12f
         isVisible = false
     }
 
@@ -32,6 +36,7 @@ class LevelChooseActor(
         originY = 50f
 
         addActor(image)
+        addActor(fg)
         addActor(lock)
 
         if (isLocked) {

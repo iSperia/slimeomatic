@@ -41,13 +41,15 @@ class LevelChooseScreen(
             val xx = index % 10
             val yy = index / 10
             val levelActor = LevelChooseActor(context, level.targetColor.let { Color(it.r, it.g, it.b, 1f)}, index > game.progress.maxLevelComplete + 1, index == game.progress.maxLevelComplete + 1).apply {
-                x = 150f + xx * 100f
-                y = 270f - yy * 100f
+                x = 140f + xx * (100f + 300f / 9f)
+                y = 280 - yy * (100f + 300f / 9f)
             }
             levels.addActor(levelActor)
-            levelActor.onClick {
-                context.sound("enter").play()
-                game.screen = FieldScreen(context, level, game, index)
+            if (index <= game.progress.maxLevelComplete + 1) {
+                levelActor.onClick {
+                    context.sound("enter").play()
+                    game.screen = FieldScreen(context, level, game, index)
+                }
             }
         }
     }
