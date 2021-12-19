@@ -29,6 +29,7 @@ import ktx.actors.repeat
 import ktx.actors.repeatForever
 import ktx.async.KtxAsync
 import java.lang.IllegalStateException
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
@@ -195,9 +196,9 @@ class FieldActor(
                     }
                 })
             }
+            rotateStickBack()
+            machineState = MachineState.NOT_WORKING
         } else {
-            val targetColor = calculateColor(5, -1, 0)
-
             val meta = animateLiquid(5, 0, 0)
             launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_working")))
             KtxAsync.launch {
@@ -206,16 +207,19 @@ class FieldActor(
                 launcher.launcherImage.setDrawable(TextureRegionDrawable(context.texture("launcher_off")))
 
                 door.openDoor()
+                val colorMatch = abs(meta.color.r - this@FieldActor.targetColor.r) < 0.02f &&
+                        abs(meta.color.g - this@FieldActor.targetColor.g) < 0.02f &&
+                        abs(meta.color.b - this@FieldActor.targetColor.b) < 0.02f
                 //Add slime
                 slime?.let { it.remove() }
-                slime = SlimeActor(context, meta.color == this@FieldActor.targetColor, meta.color).apply {
+                slime = SlimeActor(context, colorMatch, meta.color).apply {
                     x = baseBlock.x + 140f
                     y = baseBlock.y + 10f
                 }
                 slimes.addActor(slime)
 
                 delay(500L)
-                if (meta.color != this@FieldActor.targetColor) {
+                if (!colorMatch) {
                     colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_red")))
                     context.sound("sigh").play()
                     shake(colba)
@@ -240,11 +244,6 @@ class FieldActor(
     }
 
     private fun rechargeLiquidSources() {
-        blocksMap.forEach { xy, block ->
-            if (block is LiquidSourceActor) {
-                block.showLiquid()
-            }
-        }
     }
 
     private fun shake(target: Actor) {
@@ -315,6 +314,7 @@ class FieldActor(
             BlockType.ADDER -> ModificatorActor(context, OBJECT_SIZE, true, level.adders.map { Color(it.r, it.g, it.b, 1f) })
             BlockType.REMOVER -> ModificatorActor(context, OBJECT_SIZE, false, level.removers.map { Color(it.r, it.g, it.b, 1f) })
             BlockType.HOR_PIPE -> HorizontalPipeActor(context, OBJECT_SIZE)
+            BlockType.MIXER_MAX -> MixerCrossActor(context, OBJECT_SIZE)
         }.let {
             blocks.addActor(it)
             placeBlock(it, x, y)
@@ -376,6 +376,12 @@ class FieldActor(
                 is HorizontalPipeActor -> {
                     if (!checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
                     if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
+                }
+                is MixerCrossActor -> {
+                    if (!checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
+                    if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
+                    if (!checkBlockExists(xy.first, xy.second - 1)) result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second - 1))
+                    if (!checkBlockExists(xy.first, xy.second + 1)) result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second + 1))
                 }
             }
         }
@@ -444,6 +450,20 @@ class FieldActor(
                 }
                 AnimationMetadata(max(meta1.delay, meta2.delay) + LIQUID_STEP_LENGTH_MILLIS, c)
             }
+            is MixerCrossActor -> {
+                val meta1 = animateLiquid(x - 1, y, -1)
+                val meta2 = animateLiquid(x + 1, y, 1)
+                val meta3 = animateLiquid(x, y + 1, 0)
+                val c1 = meta1.color
+                val c2 = meta2.color
+                val c3 = meta3.color
+                val c = Color((c1.r + c2.r + c3.r) / 3f, (c1.g + c2.g + c3.g) /3f, (c1.b + c2.b + c3.b) / 3f, 1f)
+                KtxAsync.launch {
+                    delay(max(meta1.delay, meta2.delay))
+                    showPipeAnimationBottom(x, y, c)
+                }
+                AnimationMetadata(max(meta1.delay, meta2.delay) + LIQUID_STEP_LENGTH_MILLIS, c)
+            }
             is CornerActor -> {
                 val metadata = animateLiquid(x, y + 1, 0)
                 KtxAsync.launch {
@@ -479,33 +499,6 @@ class FieldActor(
                     showPipeAnimationHorizontal(x, y, metadata.color, dx < 0)
                 }
                 AnimationMetadata(metadata.delay + LIQUID_STEP_LENGTH_MILLIS, metadata.color)
-            }
-            else -> throw IllegalStateException("Unknown block")
-        }
-    }
-
-    //We assume everything is validated and working
-    fun calculateColor(x: Int, y: Int, dx: Int): Color {
-        if (x == 5 && y == -1) return calculateColor(x, y + 1, 0)
-        val block = blocksMap[Pair(x,y)]!!
-        return when (block) {
-            is LiquidSourceActor -> block.colors[block.colorActiveIndex]
-            is MixerActor -> {
-                val c1 = calculateColor(x - 1, y, -1)
-                val c2 = calculateColor(x + 1, y, 1)
-                Color((c1.r + c2.r) / 2f, (c1.g + c2.g) /2f, (c1.b + c2.b) / 2f, 1f)
-            }
-            is CornerActor -> return calculateColor(x, y + 1, 0)
-            is InvertorActor -> {
-                val c = calculateColor(x, y + 1, 0)
-                Color(1f - c.r, 1f - c.g, 1f - c.b, 1f)
-            }
-            is ModificatorActor -> {
-                val c = calculateColor(x, y + 1, 0)
-                operateModificator(block, c)
-            }
-            is HorizontalPipeActor -> {
-                calculateColor(x + dx, y, dx)
             }
             else -> throw IllegalStateException("Unknown block")
         }

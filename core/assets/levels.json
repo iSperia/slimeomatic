@@ -91,6 +91,20 @@
       ]
     },
     {
+      "targetColor": {"r": 0.66, "g": 0.66, "b": 0.66},
+      "blocks": ["LIQUID", "MIXER_MAX", "CORNER"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 0.15, "g": 0, "b": 0}, {"r": 0.5, "g": 0, "b": 0}, {"r": 0.5, "g": 0.25, "b": 0.25}],
+      "removers": [{"r": 0, "g": 1, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Mega mixer takes average of three colors",
+          "x": 144,
+          "y": 870
+        }
+      ]
+    },
+    {
       "targetColor": {"r": 0, "g": 1, "b": 0},
       "blocks": ["LIQUID", "INVERTOR"],
       "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],

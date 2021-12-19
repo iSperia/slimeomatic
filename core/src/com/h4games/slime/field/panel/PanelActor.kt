@@ -12,7 +12,7 @@ import ktx.actors.onClick
 import ktx.actors.repeatForever
 
 enum class BlockType {
-    LIQUID, CORNER, MIXER, INVERTOR, ADDER, REMOVER, HOR_PIPE
+    LIQUID, CORNER, MIXER, INVERTOR, ADDER, REMOVER, HOR_PIPE, MIXER_MAX
 }
 
 /**
@@ -35,6 +35,7 @@ class PanelActor(
     val adder = ModificatorActor(context, 96f, true, listOf(Color.WHITE))
     val remover = ModificatorActor(context, 96f, false, listOf(Color.WHITE))
     val horPipe = HorizontalPipeActor(context, 96f)
+    val mixerMax = MixerCrossActor(context, 96f)
 
     var blockType: BlockType = BlockType.CORNER
 
@@ -50,6 +51,7 @@ class PanelActor(
                 BlockType.CORNER -> cornerSource
                 BlockType.MIXER -> mixer
                 BlockType.HOR_PIPE -> horPipe
+                BlockType.MIXER_MAX -> mixerMax
             }
             block.x = (PANEL_SIZE - 96f) / 2f
             block.y = Gdx.graphics.height - PANEL_SIZE * (index + 1) + (PANEL_SIZE - 96f) / 2f
@@ -63,6 +65,7 @@ class PanelActor(
         adder.onClick { setFocusType(BlockType.ADDER) }
         remover.onClick { setFocusType(BlockType.REMOVER) }
         horPipe.onClick { setFocusType(BlockType.HOR_PIPE) }
+        mixerMax.onClick { setFocusType(BlockType.MIXER_MAX) }
 
         setFocusType(BlockType.LIQUID)
     }
@@ -78,6 +81,7 @@ class PanelActor(
                 BlockType.ADDER -> adder.clearActions()
                 BlockType.REMOVER -> remover.clearActions()
                 BlockType.HOR_PIPE -> horPipe.clearActions()
+                BlockType.MIXER_MAX -> mixerMax.clearActions()
             }
             this.blockType = blockType
             when (this.blockType) {
@@ -88,6 +92,7 @@ class PanelActor(
                 BlockType.ADDER -> adder
                 BlockType.REMOVER -> remover
                 BlockType.HOR_PIPE -> horPipe
+                BlockType.MIXER_MAX -> mixerMax
             }.let { blockActor ->
                 blockActor.addAction(SequenceAction(
                     ScaleToAction().apply {

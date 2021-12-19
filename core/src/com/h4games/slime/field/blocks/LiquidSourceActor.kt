@@ -34,14 +34,6 @@ class LiquidSourceActor(
         background.addActor(liquidImage)
     }
 
-    fun hideLiquid() {
-        background.isVisible = false
-    }
-
-    fun showLiquid() {
-        background.isVisible = true
-    }
-
     override fun initForeground() {
         super.initForeground()
         val sc = size / 400f

@@ -402,6 +402,13 @@ size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+block_mixer_cross
+  rotate: false
+  xy: 402, 1204
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
 liquid_animation_left
   rotate: false
   xy: 1, 1204
@@ -418,98 +425,91 @@ liquid_animation_left
   index: 15
 liquid_animation_left
   rotate: false
-  xy: 402, 803
+  xy: 803, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 4
 liquid_animation_left
   rotate: false
-  xy: 803, 1204
+  xy: 1204, 1605
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 12
 liquid_animation_left
   rotate: false
-  xy: 803, 803
+  xy: 1204, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 9
 liquid_animation_left
   rotate: false
-  xy: 1605, 1605
+  xy: 402, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 1
 liquid_animation_left
   rotate: false
-  xy: 1605, 1204
+  xy: 803, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 6
 liquid_animation_left
   rotate: false
-  xy: 803, 1
+  xy: 1204, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 14
-liquid_animation_left
-  rotate: false
-  xy: 1605, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 3
 liquid_animation_right
   rotate: false
-  xy: 402, 1204
+  xy: 803, 1605
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 5
 liquid_animation_right
   rotate: false
-  xy: 1, 402
+  xy: 402, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 14
 liquid_animation_right
   rotate: false
-  xy: 1, 1
+  xy: 402, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 2
 liquid_animation_right
   rotate: false
-  xy: 1204, 1204
+  xy: 1605, 1605
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 11
 liquid_animation_right
   rotate: false
-  xy: 402, 1
+  xy: 803, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 7
 liquid_animation_right
   rotate: false
-  xy: 1605, 803
+  xy: 1204, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 4
 liquid_animation_right
   rotate: false
-  xy: 1605, 402
+  xy: 1605, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
@@ -530,49 +530,49 @@ liquid_animation_vertical
   index: 14
 liquid_animation_vertical
   rotate: false
-  xy: 803, 1605
+  xy: 1, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 7
 liquid_animation_vertical
   rotate: false
-  xy: 1204, 1605
+  xy: 1, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 11
 liquid_animation_vertical
   rotate: false
-  xy: 402, 402
+  xy: 803, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 4
 liquid_animation_vertical
   rotate: false
-  xy: 803, 402
+  xy: 1204, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 9
 liquid_animation_vertical
   rotate: false
-  xy: 1204, 803
+  xy: 1605, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 1
 liquid_animation_vertical
   rotate: false
-  xy: 1204, 402
+  xy: 1605, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 13
 liquid_animation_vertical
   rotate: false
-  xy: 1204, 1
+  xy: 1605, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
@@ -585,252 +585,259 @@ filter: Nearest, Nearest
 repeat: none
 base
   rotate: false
-  xy: 1171, 386
+  xy: 1254, 570
   size: 216, 216
   orig: 216, 216
   offset: 0, 0
   index: -1
 block_adder
   rotate: false
-  xy: 285, 17
+  xy: 285, 2
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 block_corner
   rotate: false
-  xy: 1371, 1067
+  xy: 1689, 1153
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
 block_corner_alt
   rotate: false
-  xy: 1171, 603
+  xy: 1689, 1454
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
 block_hor_pipe
   rotate: false
-  xy: 1643, 1821
+  xy: 1288, 1088
   size: 400, 200
   orig: 400, 200
   offset: 0, 0
   index: -1
 block_invertor
   rotate: false
-  xy: 686, 417
+  xy: 1488, 1289
   size: 200, 401
   orig: 200, 401
   offset: 0, 0
   index: -1
 block_invertor_icon
   rotate: false
-  xy: 1488, 1368
+  xy: 1087, 803
   size: 200, 401
   orig: 200, 401
   offset: 0, 0
   index: -1
 block_liquid_bg
   rotate: false
-  xy: 1472, 766
+  xy: 1288, 787
   size: 200, 300
   orig: 200, 300
   offset: 0, 0
   index: -1
 block_mixer
   rotate: false
-  xy: 803, 1305
+  xy: 1204, 1691
   size: 400, 315
   orig: 400, 315
   offset: 0, 0
   index: -1
 block_remover
   rotate: false
-  xy: 1087, 904
+  xy: 970, 402
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 colba_empty
   rotate: false
-  xy: 1061, 232
+  xy: 1575, 516
   size: 103, 270
   orig: 103, 270
   offset: 0, 0
   index: -1
 colba_green
   rotate: false
-  xy: 853, 146
+  xy: 1137, 131
   size: 103, 270
   orig: 103, 270
   offset: 0, 0
   index: -1
 colba_red
   rotate: false
-  xy: 957, 232
+  xy: 1471, 516
   size: 103, 270
   orig: 103, 270
   offset: 0, 0
   index: -1
 door_fg
   rotate: false
-  xy: 1165, 243
+  xy: 1254, 427
   size: 177, 142
   orig: 177, 142
   offset: 0, 0
   index: -1
 garage
   rotate: false
-  xy: 1204, 1770
+  xy: 1605, 1755
   size: 438, 251
   orig: 438, 251
   offset: 0, 0
   index: -1
 launcher_error
   rotate: false
-  xy: 1672, 1170
+  xy: 1690, 743
   size: 122, 124
   orig: 122, 124
   offset: 0, 0
   index: -1
 launcher_off
   rotate: false
-  xy: 1812, 1295
+  xy: 1137, 6
   size: 122, 124
   orig: 122, 124
   offset: 0, 0
   index: -1
 launcher_stick
   rotate: false
-  xy: 998, 72
+  xy: 1690, 993
   size: 139, 159
   orig: 139, 159
   offset: 0, 0
   index: -1
 launcher_working
   rotate: false
-  xy: 1689, 1295
+  xy: 1690, 868
   size: 122, 124
   orig: 122, 124
   offset: 0, 0
   index: -1
 liquid_animation_left
   rotate: false
-  xy: 1, 1621
+  xy: 1, 1606
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 3
+liquid_animation_left
+  rotate: false
+  xy: 1, 1205
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 11
 liquid_animation_left
   rotate: false
-  xy: 803, 1621
+  xy: 1, 403
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 8
 liquid_animation_right
   rotate: false
-  xy: 1, 1220
+  xy: 402, 1606
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 9
 liquid_animation_right
   rotate: false
-  xy: 1, 819
+  xy: 402, 1205
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 1
 liquid_animation_right
   rotate: false
-  xy: 1, 418
+  xy: 402, 804
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 10
 liquid_animation_vertical
   rotate: false
-  xy: 402, 1621
+  xy: 1, 804
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 10
 liquid_animation_vertical
   rotate: false
-  xy: 402, 1220
+  xy: 803, 1606
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 3
 liquid_animation_vertical
   rotate: false
-  xy: 402, 819
+  xy: 803, 1205
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 15
 liquid_source
   rotate: false
-  xy: 1472, 465
+  xy: 1489, 787
   size: 200, 300
   orig: 200, 300
   offset: 0, 0
   index: -1
 minus_body
   rotate: false
-  xy: 1204, 1369
+  xy: 1204, 1290
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_btn
   rotate: false
-  xy: 887, 503
+  xy: 853, 1
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_btn_pressed
   rotate: false
-  xy: 1, 17
+  xy: 1, 2
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_liquid
   rotate: false
-  xy: 402, 418
+  xy: 402, 403
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_btn
   rotate: false
-  xy: 569, 16
+  xy: 569, 2
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_btn_pressed
   rotate: false
-  xy: 803, 904
+  xy: 803, 804
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_liquid
   rotate: false
-  xy: 1689, 1420
+  xy: 686, 403
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 slime
   rotate: false
-  xy: 853, 1
+  xy: 1830, 1008
   size: 144, 144
   orig: 144, 144
   offset: 0, 0
