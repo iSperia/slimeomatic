@@ -124,7 +124,14 @@
       "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
       "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
       "removers": [{"r": 0, "g": 1, "b": 1}],
-      "locked": [{"type": "ADDER", "x": 5, "y": 1}]
+      "locked": [{"type": "ADDER", "x": 5, "y": 1}],
+      "tutorials": [
+        {
+          "text": "After adding, color component can't exceed maximum value (magenta + red is still magenta)",
+          "x": 144,
+          "y": 870
+        }
+      ]
     },
     {
       "targetColor": {"r": 0, "g": 0.5, "b": 1},
@@ -156,22 +163,6 @@
       ]
     },
     {
-      "targetColor": {"r": 0.5, "g": 0.5, "b": 0},
-      "blocks": ["LIQUID", "ADDER", "INVERTOR", "MIXER", "CORNER"],
-      "liquids": [{"r": 0, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 1}],
-      "adders": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
-      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
-      "locked": [{"type": "INVERTOR", "x": 6, "y": 1}]
-    },
-    {
-      "targetColor": {"r": 0.9, "g": 0.9, "b": 0.4},
-      "blocks": ["LIQUID", "ADDER", "MIXER", "CORNER"],
-      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
-      "adders": [{"r": 1, "g": 1, "b": 1},{"r": 0.7, "g": 0.7, "b": 0.7},{"r": 0.4, "g": 0.4, "b": 0.4}],
-      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
-      "locked": [{"type": "MIXER", "x": 5, "y": 1}]
-    },
-    {
       "targetColor": {"r": 0.75, "g": 0.5, "b": 0.75},
       "blocks": ["LIQUID", "MIXER", "CORNER", "HOR_PIPE"],
       "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 0, "b": 1},{"r": 1, "g": 1, "b": 0}],
@@ -180,6 +171,64 @@
       "tutorials": [
         {
           "text": "If you mix a lot, you will need horizontal pipe for blocks to keep place",
+          "x": 144,
+          "y": 870
+        }
+      ]
+    },
+    {
+      "targetColor": {"r": 0.66, "g": 0.66, "b": 0.33},
+      "blocks": ["LIQUID", "MIXER_MAX", "INVERTOR", "CORNER"],
+      "liquids": [{"r": 1, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 1},{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 1, "b": 1}],
+      "adders": [{"r": 1, "g": 1, "b": 1},{"r": 0.7, "g": 0.7, "b": 0.7},{"r": 0.4, "g": 0.4, "b": 0.4}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "locked": [{"type": "INVERTOR", "x": 4, "y": 1}, {"type": "INVERTOR", "x": 6, "y": 1}]
+    },
+    {
+      "targetColor": {"r": 0, "g": 0.5, "b": 0.5},
+      "blocks": ["LIQUID", "REMOVER", "MIXER", "CORNER", "INVERTOR"],
+      "liquids": [{"r": 0, "g": 0, "b": 0}],
+      "adders": [{"r": 1, "g": 1, "b": 1},{"r": 0.7, "g": 0.7, "b": 0.7},{"r": 0.4, "g": 0.4, "b": 0.4}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}],
+      "locked": [{"type": "MIXER", "x": 5, "y": 1}, {"type": "INVERTOR", "x": 6, "y": 2}]
+    },
+    {
+      "targetColor": {"r": 1, "g": 0, "b": 1},
+      "blocks": ["LIQUID", "ADDER", "INVERTOR", "MIXER", "CORNER"],
+      "liquids": [{"r": 0, "g": 1, "b": 1},{"r": 1, "g": 1, "b": 0}],
+      "adders": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 1, "g": 0, "b": 0}, {"r": 0, "g": 1, "b": 0}, {"r": 0, "g": 0, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 0.33, "g": 0, "b": 0.165},
+      "blocks": ["LIQUID", "ADDER", "MIXER", "MIXER_MAX", "CORNER", "HOR_PIPE"],
+      "liquids": [{"r": 0, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 0, "b": 1},{"r": 0, "g": 0, "b": 0}],
+      "adders": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 0, "g": 0.5, "b": 1},
+      "blocks": ["LIQUID", "ADDER", "MIXER", "MIXER_MAX", "CORNER", "HOR_PIPE"],
+      "liquids": [{"r": 0, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "adders": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}]
+    },
+    {
+      "targetColor": {"r": 1, "g": 0.25, "b": 0.5},
+      "blocks": ["LIQUID", "REMOVER", "ADDER", "MIXER", "CORNER", "HOR_PIPE"],
+      "liquids": [{"r": 1, "g": 1, "b": 0},{"r": 1, "g": 0, "b": 1},{"r": 0, "g": 1, "b": 1}],
+      "adders": [{"r": 1, "g": 0, "b": 0},{"r": 0, "g": 1, "b": 0},{"r": 0, "g": 0, "b": 1}],
+      "removers": [{"r":0.5, "g": 0.5, "b": 0.5}]
+    },
+    {
+      "targetColor": {"r": 0.2, "g": 0.8, "b": 0.4},
+      "blocks": ["LIQUID", "REMOVER", "ADDER", "MIXER_MAX", "CORNER", "HOR_PIPE"],
+      "liquids": [{"r": 1, "g": 1, "b": 1},{"r": 0, "g": 0, "b": 0}],
+      "adders": [{"r": 0.5, "g": 0, "b": 0.5},{"r": 0.5, "g": 0.6, "b": 0},{"r": 0, "g": 0.6, "b": 0.5}],
+      "removers": [{"r": 1, "g": 0.6, "b": 0.9}, {"r": 0.9, "g": 0, "b": 0}, {"r": 0.5, "g": 0.9, "b": 1}],
+      "tutorials": [
+        {
+          "text": "Good luck!",
           "x": 144,
           "y": 870
         }

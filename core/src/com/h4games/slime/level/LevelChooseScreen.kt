@@ -23,7 +23,7 @@ class LevelChooseScreen(
     override fun show() {
         super.show()
 
-        val bg = Image(context.texture("bg_screen")).apply {
+        val bg = Image(context.texture("bg_main")).apply {
             width = Gdx.graphics.width.toFloat()
             height = Gdx.graphics.height.toFloat()
         }
@@ -38,11 +38,11 @@ class LevelChooseScreen(
 
         config = gson.fromJson<LevelsConfig>(Gdx.files.internal("levels.json").readString(), LevelsConfig::class.java)
         config.levels.forEachIndexed { index, level ->
-            val xx = index % 16
-            val yy = index / 16
+            val xx = index % 10
+            val yy = index / 10
             val levelActor = LevelChooseActor(context, level.targetColor.let { Color(it.r, it.g, it.b, 1f)}, index > game.progress.maxLevelComplete + 1, index == game.progress.maxLevelComplete + 1).apply {
-                x = xx * 100f
-                y = yy * 100f
+                x = 150f + xx * 100f
+                y = 270f - yy * 100f
             }
             levels.addActor(levelActor)
             levelActor.onClick {

@@ -4,409 +4,590 @@ size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+base
+  rotate: false
+  xy: 1752, 628
+  size: 216, 216
+  orig: 216, 216
+  offset: 0, 0
+  index: -1
 bg_left
   rotate: false
-  xy: 1, 834
+  xy: 1282, 554
   size: 469, 492
   orig: 469, 492
   offset: 0, 0
   index: -1
+bg_main
+  rotate: false
+  xy: 1, 1047
+  size: 1600, 1000
+  orig: 1600, 1000
+  offset: 0, 0
+  index: -1
 bg_right
   rotate: false
-  xy: 1282, 1663
+  xy: 1282, 169
   size: 566, 384
   orig: 566, 384
   offset: 0, 0
   index: -1
 bg_screen
   rotate: false
-  xy: 1, 1327
+  xy: 1, 326
   size: 1280, 720
   orig: 1280, 720
   offset: 0, 0
   index: -1
+block_hor_pipe
+  rotate: false
+  xy: 841, 125
+  size: 400, 200
+  orig: 400, 200
+  offset: 0, 0
+  index: -1
+block_mixer
+  rotate: false
+  xy: 1, 10
+  size: 400, 315
+  orig: 400, 315
+  offset: 0, 0
+  index: -1
 block_mixer_icon
   rotate: false
-  xy: 1953, 1962
+  xy: 1953, 540
   size: 82, 85
   orig: 82, 85
   offset: 0, 0
   index: -1
-colba_liquid
+colba_green
   rotate: false
-  xy: 1849, 1777
+  xy: 1849, 86
   size: 103, 270
   orig: 103, 270
   offset: 0, 0
   index: -1
-corner_btn
+colba_liquid
   rotate: false
-  xy: 471, 850
-  size: 60, 75
-  orig: 60, 75
+  xy: 1849, 357
+  size: 103, 270
+  orig: 103, 270
   offset: 0, 0
   index: -1
 cursor_nok
   rotate: false
-  xy: 1958, 970
+  xy: 1953, 467
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 cursor_ok
   rotate: false
-  xy: 1967, 1631
+  xy: 1953, 321
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
+door_fg
+  rotate: false
+  xy: 1278, 26
+  size: 177, 142
+  orig: 177, 142
+  offset: 0, 0
+  index: -1
+garage
+  rotate: false
+  xy: 402, 74
+  size: 438, 251
+  orig: 438, 251
+  offset: 0, 0
+  index: -1
 hor_pipe
   rotate: false
-  xy: 1967, 1558
+  xy: 1953, 248
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 hpipe
   rotate: false
-  xy: 1227, 903
+  xy: 1145, 4
   size: 44, 22
   orig: 44, 22
   offset: 0, 0
   index: 2
 hpipe
   rotate: false
-  xy: 979, 28
+  xy: 1190, 4
   size: 44, 22
   orig: 44, 22
   offset: 0, 0
   index: 4
 hpipe
   rotate: false
-  xy: 1849, 1681
+  xy: 1601, 21
   size: 44, 22
   orig: 44, 22
   offset: 0, 0
   index: 1
 hpipe
   rotate: false
-  xy: 1953, 1793
+  xy: 1646, 21
   size: 44, 22
   orig: 44, 22
   offset: 0, 0
   index: 3
 hpipe
   rotate: false
-  xy: 1958, 874
+  xy: 1691, 21
   size: 44, 22
   orig: 44, 22
   offset: 0, 0
   index: 0
 launcher_hover
   rotate: false
-  xy: 979, 51
+  xy: 402, 1
   size: 144, 72
   orig: 144, 72
+  offset: 0, 0
+  index: -1
+launcher_off
+  rotate: false
+  xy: 1724, 44
+  size: 122, 124
+  orig: 122, 124
   offset: 0, 0
   index: -1
 launcher_on
   rotate: false
-  xy: 1849, 1704
+  xy: 547, 1
   size: 144, 72
   orig: 144, 72
   offset: 0, 0
   index: -1
+launcher_stick
+  rotate: false
+  xy: 1602, 1167
+  size: 139, 159
+  orig: 139, 159
+  offset: 0, 0
+  index: -1
+launcher_working
+  rotate: false
+  xy: 1601, 44
+  size: 122, 124
+  orig: 122, 124
+  offset: 0, 0
+  index: -1
 level
   rotate: false
-  xy: 1958, 1189
+  xy: 1969, 772
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
-liquid_animation_left
-  rotate: false
-  xy: 141, 433
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 5
-liquid_animation_left
-  rotate: false
-  xy: 1273, 861
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 13
-liquid_animation_left
-  rotate: false
-  xy: 1227, 59
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 2
-liquid_animation_left
-  rotate: false
-  xy: 1628, 460
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 10
-liquid_animation_right
-  rotate: false
-  xy: 471, 926
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 6
-liquid_animation_right
-  rotate: false
-  xy: 1282, 1262
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 15
-liquid_animation_right
-  rotate: false
-  xy: 542, 525
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 3
-liquid_animation_right
-  rotate: false
-  xy: 1227, 460
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 12
-liquid_animation_right
-  rotate: false
-  xy: 1628, 59
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 8
-liquid_animation_vertical
-  rotate: false
-  xy: 872, 926
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 8
-liquid_animation_vertical
-  rotate: false
-  xy: 141, 32
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 12
-liquid_animation_vertical
-  rotate: false
-  xy: 542, 124
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 5
 liquid_btn
   rotate: false
-  xy: 1967, 1270
+  xy: 1847, 17
   size: 72, 68
   orig: 72, 68
   offset: 0, 0
   index: -1
 liquid_source_anim
   rotate: false
-  xy: 1953, 1889
+  xy: 765, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: 0
 liquid_source_anim
   rotate: false
-  xy: 1958, 1043
+  xy: 1969, 626
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: 2
 liquid_source_anim
   rotate: false
-  xy: 1967, 1412
+  xy: 1953, 102
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: 1
 lock
   rotate: false
-  xy: 1124, 51
+  xy: 692, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 minus_connector_bottom
   rotate: false
-  xy: 943, 124
+  xy: 1742, 1246
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_connector_top
   rotate: false
-  xy: 1683, 1262
+  xy: 1752, 845
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_liquid_alt
   rotate: false
-  xy: 943, 525
+  xy: 1742, 1647
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 modificator_color
   rotate: false
-  xy: 1958, 1116
+  xy: 1969, 699
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
-plus_liquid_alt
+slime
   rotate: false
-  xy: 1674, 861
-  size: 283, 400
-  orig: 283, 400
+  xy: 1456, 24
+  size: 144, 144
+  orig: 144, 144
   offset: 0, 0
   index: -1
 slime_happy_bg
   rotate: false
-  xy: 694, 4
+  xy: 993, 5
   size: 151, 119
   orig: 151, 119
   offset: 0, 0
   index: -1
 slime_happy_fg
   rotate: false
-  xy: 542, 4
+  xy: 841, 5
   size: 151, 119
   orig: 151, 119
   offset: 0, 0
   index: -1
 slime_sad_bg
   rotate: false
-  xy: 1, 15
+  xy: 1602, 1069
   size: 132, 97
   orig: 132, 97
   offset: 0, 0
   index: -1
 slime_sad_fg
   rotate: false
-  xy: 846, 26
+  xy: 1145, 27
   size: 132, 97
   orig: 132, 97
   offset: 0, 0
   index: -1
 test_bottom
   rotate: false
-  xy: 1967, 1339
+  xy: 1920, 13
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 test_corner_bottom_left
   rotate: false
-  xy: 1967, 1485
+  xy: 1953, 175
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 test_flip
   rotate: false
-  xy: 871, 1
+  xy: 1260, 1
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 test_liquid
   rotate: false
-  xy: 1958, 897
+  xy: 1953, 394
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 test_mixer
   rotate: false
-  xy: 1953, 1816
+  xy: 1752, 555
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 test_panel
   rotate: false
-  xy: 1, 113
+  xy: 1602, 1327
   size: 139, 720
   orig: 139, 720
   offset: 0, 0
   index: -1
 test_refresh
   rotate: false
-  xy: 846, 1
+  xy: 1235, 2
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 vpipe
   rotate: false
-  xy: 1197, 79
+  xy: 1242, 281
   size: 22, 44
   orig: 22, 44
   offset: 0, 0
   index: 3
 vpipe
   rotate: false
-  xy: 1197, 34
+  xy: 1825, 583
   size: 22, 44
   orig: 22, 44
   offset: 0, 0
   index: 0
 vpipe
   rotate: false
-  xy: 1283, 14
+  xy: 1242, 236
   size: 22, 44
   orig: 22, 44
   offset: 0, 0
   index: 2
 vpipe
   rotate: false
-  xy: 1306, 14
+  xy: 1242, 191
   size: 22, 44
   orig: 22, 44
   offset: 0, 0
   index: 4
 vpipe
   rotate: false
-  xy: 1329, 14
+  xy: 1242, 146
   size: 22, 44
   orig: 22, 44
   offset: 0, 0
   index: 1
-warning
-  rotate: false
-  xy: 1220, 2
-  size: 62, 56
-  orig: 62, 56
-  offset: 0, 0
-  index: -1
 
 textures2.png
 size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+block_invertor
+  rotate: false
+  xy: 202, 1605
+  size: 200, 401
+  orig: 200, 401
+  offset: 0, 0
+  index: -1
+block_invertor_icon
+  rotate: false
+  xy: 1, 1605
+  size: 200, 401
+  orig: 200, 401
+  offset: 0, 0
+  index: -1
 block_mixer_cross
+  rotate: false
+  xy: 1204, 804
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+liquid_animation_left
+  rotate: false
+  xy: 803, 1205
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 5
+liquid_animation_left
+  rotate: false
+  xy: 804, 1606
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 13
+liquid_animation_left
+  rotate: false
+  xy: 1, 402
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 2
+liquid_animation_left
+  rotate: false
+  xy: 402, 402
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 10
+liquid_animation_left
+  rotate: false
+  xy: 402, 1
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 7
+liquid_animation_left
+  rotate: false
+  xy: 1204, 1205
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 15
+liquid_animation_left
+  rotate: false
+  xy: 1606, 1606
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 4
+liquid_animation_left
+  rotate: false
+  xy: 1605, 804
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 12
+liquid_animation_right
+  rotate: false
+  xy: 1, 1204
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 6
+liquid_animation_right
+  rotate: false
+  xy: 403, 1606
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 15
+liquid_animation_right
+  rotate: false
+  xy: 1, 803
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 3
+liquid_animation_right
+  rotate: false
+  xy: 803, 403
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 12
+liquid_animation_right
+  rotate: false
+  xy: 803, 2
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 8
+liquid_animation_right
+  rotate: false
+  xy: 1204, 403
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 5
+liquid_animation_right
+  rotate: false
+  xy: 1605, 1205
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 14
+liquid_animation_right
+  rotate: false
+  xy: 1605, 2
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 2
+liquid_animation_vertical
   rotate: false
   xy: 402, 1204
   size: 400, 400
   orig: 400, 400
+  offset: 0, 0
+  index: 8
+liquid_animation_vertical
+  rotate: false
+  xy: 803, 804
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 12
+liquid_animation_vertical
+  rotate: false
+  xy: 402, 803
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 5
+liquid_animation_vertical
+  rotate: false
+  xy: 1, 1
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 2
+liquid_animation_vertical
+  rotate: false
+  xy: 1205, 1606
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 14
+liquid_animation_vertical
+  rotate: false
+  xy: 1204, 2
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 7
+liquid_animation_vertical
+  rotate: false
+  xy: 1605, 403
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 11
+
+textures3.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+block_liquid_bg
+  rotate: false
+  xy: 1772, 101
+  size: 200, 300
+  orig: 200, 300
+  offset: 0, 0
+  index: -1
+colba_red
+  rotate: false
+  xy: 1889, 532
+  size: 103, 270
+  orig: 103, 270
+  offset: 0, 0
+  index: -1
+corner_btn
+  rotate: false
+  xy: 1772, 25
+  size: 60, 75
+  orig: 60, 75
+  offset: 0, 0
+  index: -1
+launcher_error
+  rotate: false
+  xy: 1889, 407
+  size: 122, 124
+  orig: 122, 124
   offset: 0, 0
   index: -1
 liquid_animation_left
@@ -415,430 +596,262 @@ liquid_animation_left
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
-  index: 7
+  index: 9
 liquid_animation_left
   rotate: false
-  xy: 402, 1605
+  xy: 1, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
-  index: 15
+  index: 1
+liquid_animation_left
+  rotate: false
+  xy: 402, 803
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 6
 liquid_animation_left
   rotate: false
   xy: 803, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
-  index: 4
-liquid_animation_left
-  rotate: false
-  xy: 1204, 1605
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 12
+  index: 14
 liquid_animation_left
   rotate: false
   xy: 1204, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
-  index: 9
+  index: 3
 liquid_animation_left
-  rotate: false
-  xy: 402, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 1
-liquid_animation_left
-  rotate: false
-  xy: 803, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 6
-liquid_animation_left
-  rotate: false
-  xy: 1204, 402
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 14
-liquid_animation_right
-  rotate: false
-  xy: 803, 1605
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 5
-liquid_animation_right
-  rotate: false
-  xy: 402, 803
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 14
-liquid_animation_right
-  rotate: false
-  xy: 402, 402
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 2
-liquid_animation_right
   rotate: false
   xy: 1605, 1605
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 11
-liquid_animation_right
-  rotate: false
-  xy: 803, 402
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 7
-liquid_animation_right
-  rotate: false
-  xy: 1204, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 4
-liquid_animation_right
-  rotate: false
-  xy: 1605, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 13
-liquid_animation_vertical
-  rotate: false
-  xy: 1, 1605
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 2
-liquid_animation_vertical
-  rotate: false
-  xy: 1, 803
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 14
-liquid_animation_vertical
-  rotate: false
-  xy: 1, 402
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 7
-liquid_animation_vertical
-  rotate: false
-  xy: 1, 1
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 11
-liquid_animation_vertical
-  rotate: false
-  xy: 803, 803
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 4
-liquid_animation_vertical
-  rotate: false
-  xy: 1204, 803
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 9
-liquid_animation_vertical
-  rotate: false
-  xy: 1605, 1204
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 1
-liquid_animation_vertical
-  rotate: false
-  xy: 1605, 803
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 13
-liquid_animation_vertical
-  rotate: false
-  xy: 1605, 402
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 6
-
-textures3.png
-size: 2048, 2048
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
-base
-  rotate: false
-  xy: 1254, 570
-  size: 216, 216
-  orig: 216, 216
-  offset: 0, 0
-  index: -1
-block_adder
-  rotate: false
-  xy: 285, 2
-  size: 283, 400
-  orig: 283, 400
-  offset: 0, 0
-  index: -1
-block_corner
-  rotate: false
-  xy: 1689, 1153
-  size: 300, 300
-  orig: 300, 300
-  offset: 0, 0
-  index: -1
-block_corner_alt
-  rotate: false
-  xy: 1689, 1454
-  size: 300, 300
-  orig: 300, 300
-  offset: 0, 0
-  index: -1
-block_hor_pipe
-  rotate: false
-  xy: 1288, 1088
-  size: 400, 200
-  orig: 400, 200
-  offset: 0, 0
-  index: -1
-block_invertor
-  rotate: false
-  xy: 1488, 1289
-  size: 200, 401
-  orig: 200, 401
-  offset: 0, 0
-  index: -1
-block_invertor_icon
-  rotate: false
-  xy: 1087, 803
-  size: 200, 401
-  orig: 200, 401
-  offset: 0, 0
-  index: -1
-block_liquid_bg
-  rotate: false
-  xy: 1288, 787
-  size: 200, 300
-  orig: 200, 300
-  offset: 0, 0
-  index: -1
-block_mixer
-  rotate: false
-  xy: 1204, 1691
-  size: 400, 315
-  orig: 400, 315
-  offset: 0, 0
-  index: -1
-block_remover
-  rotate: false
-  xy: 970, 402
-  size: 283, 400
-  orig: 283, 400
-  offset: 0, 0
-  index: -1
-colba_empty
-  rotate: false
-  xy: 1575, 516
-  size: 103, 270
-  orig: 103, 270
-  offset: 0, 0
-  index: -1
-colba_green
-  rotate: false
-  xy: 1137, 131
-  size: 103, 270
-  orig: 103, 270
-  offset: 0, 0
-  index: -1
-colba_red
-  rotate: false
-  xy: 1471, 516
-  size: 103, 270
-  orig: 103, 270
-  offset: 0, 0
-  index: -1
-door_fg
-  rotate: false
-  xy: 1254, 427
-  size: 177, 142
-  orig: 177, 142
-  offset: 0, 0
-  index: -1
-garage
-  rotate: false
-  xy: 1605, 1755
-  size: 438, 251
-  orig: 438, 251
-  offset: 0, 0
-  index: -1
-launcher_error
-  rotate: false
-  xy: 1690, 743
-  size: 122, 124
-  orig: 122, 124
-  offset: 0, 0
-  index: -1
-launcher_off
-  rotate: false
-  xy: 1137, 6
-  size: 122, 124
-  orig: 122, 124
-  offset: 0, 0
-  index: -1
-launcher_stick
-  rotate: false
-  xy: 1690, 993
-  size: 139, 159
-  orig: 139, 159
-  offset: 0, 0
-  index: -1
-launcher_working
-  rotate: false
-  xy: 1690, 868
-  size: 122, 124
-  orig: 122, 124
-  offset: 0, 0
-  index: -1
 liquid_animation_left
   rotate: false
-  xy: 1, 1606
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 3
-liquid_animation_left
-  rotate: false
-  xy: 1, 1205
-  size: 400, 400
-  orig: 400, 400
-  offset: 0, 0
-  index: 11
-liquid_animation_left
-  rotate: false
-  xy: 1, 403
+  xy: 803, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 8
 liquid_animation_right
   rotate: false
-  xy: 402, 1606
+  xy: 402, 1605
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 11
+liquid_animation_right
+  rotate: false
+  xy: 402, 1204
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 7
+liquid_animation_right
+  rotate: false
+  xy: 1, 1
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 4
+liquid_animation_right
+  rotate: false
+  xy: 803, 803
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 13
+liquid_animation_right
+  rotate: false
+  xy: 402, 1
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 9
 liquid_animation_right
   rotate: false
-  xy: 402, 1205
+  xy: 1204, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 1
 liquid_animation_right
   rotate: false
-  xy: 402, 804
+  xy: 1204, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 10
 liquid_animation_vertical
   rotate: false
-  xy: 1, 804
+  xy: 1, 1605
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 4
+liquid_animation_vertical
+  rotate: false
+  xy: 803, 1605
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 9
+liquid_animation_vertical
+  rotate: false
+  xy: 1, 402
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 1
+liquid_animation_vertical
+  rotate: false
+  xy: 1204, 1605
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 13
+liquid_animation_vertical
+  rotate: false
+  xy: 402, 402
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: 6
+liquid_animation_vertical
+  rotate: false
+  xy: 803, 402
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 10
 liquid_animation_vertical
   rotate: false
-  xy: 803, 1606
+  xy: 1605, 1204
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 3
 liquid_animation_vertical
   rotate: false
-  xy: 803, 1205
+  xy: 1605, 803
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
   index: 15
-liquid_source
-  rotate: false
-  xy: 1489, 787
-  size: 200, 300
-  orig: 200, 300
-  offset: 0, 0
-  index: -1
-minus_body
-  rotate: false
-  xy: 1204, 1290
-  size: 283, 400
-  orig: 283, 400
-  offset: 0, 0
-  index: -1
-minus_btn
-  rotate: false
-  xy: 853, 1
-  size: 283, 400
-  orig: 283, 400
-  offset: 0, 0
-  index: -1
 minus_btn_pressed
   rotate: false
-  xy: 1, 2
+  xy: 1605, 402
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 minus_liquid
   rotate: false
-  xy: 402, 403
+  xy: 1488, 1
+  size: 283, 400
+  orig: 283, 400
+  offset: 0, 0
+  index: -1
+plus_liquid_alt
+  rotate: false
+  xy: 1204, 1
+  size: 283, 400
+  orig: 283, 400
+  offset: 0, 0
+  index: -1
+warning
+  rotate: false
+  xy: 1833, 44
+  size: 62, 56
+  orig: 62, 56
+  offset: 0, 0
+  index: -1
+
+textures4.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+block_adder
+  rotate: false
+  xy: 285, 402
+  size: 283, 400
+  orig: 283, 400
+  offset: 0, 0
+  index: -1
+block_corner
+  rotate: false
+  xy: 1438, 502
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+block_corner_alt
+  rotate: false
+  xy: 1137, 502
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+block_remover
+  rotate: false
+  xy: 569, 1
+  size: 283, 400
+  orig: 283, 400
+  offset: 0, 0
+  index: -1
+colba_empty
+  rotate: false
+  xy: 1739, 532
+  size: 103, 270
+  orig: 103, 270
+  offset: 0, 0
+  index: -1
+liquid_source
+  rotate: false
+  xy: 853, 101
+  size: 200, 300
+  orig: 200, 300
+  offset: 0, 0
+  index: -1
+minus_body
+  rotate: false
+  xy: 1, 1
+  size: 283, 400
+  orig: 283, 400
+  offset: 0, 0
+  index: -1
+minus_btn
+  rotate: false
+  xy: 853, 402
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_btn
   rotate: false
-  xy: 569, 2
+  xy: 569, 402
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_btn_pressed
   rotate: false
-  xy: 803, 804
+  xy: 1, 402
   size: 283, 400
   orig: 283, 400
   offset: 0, 0
   index: -1
 plus_liquid
   rotate: false
-  xy: 686, 403
+  xy: 285, 1
   size: 283, 400
   orig: 283, 400
-  offset: 0, 0
-  index: -1
-slime
-  rotate: false
-  xy: 1830, 1008
-  size: 144, 144
-  orig: 144, 144
   offset: 0, 0
   index: -1

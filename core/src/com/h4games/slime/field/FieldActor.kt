@@ -26,7 +26,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.actors.repeat
-import ktx.actors.repeatForever
 import ktx.async.KtxAsync
 import java.lang.IllegalStateException
 import kotlin.math.abs
@@ -227,8 +226,8 @@ class FieldActor(
                 } else {
                     colba.fg.setDrawable(TextureRegionDrawable(context.texture("colba_green")))
                     context.sound("fanfare").play()
-                    delay(2000L)
                     game.markLevelComplete(levelIndex)
+                    delay(5000L)
                     game.screen = LevelChooseScreen(context, game)
                     rotateStickBack()
                 }
@@ -361,8 +360,8 @@ class FieldActor(
                     if (!block.bottomLeft && !checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
                 }
                 is MixerActor -> {
-                    if (!checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
-                    if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
+                    if (!checkBlockNonCross(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
+                    if (!checkBlockNonCross(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
                     if (!checkBlockExists(xy.first, xy.second - 1)) result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second - 1))
                 }
                 is InvertorActor -> {
@@ -378,8 +377,8 @@ class FieldActor(
                     if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
                 }
                 is MixerCrossActor -> {
-                    if (!checkBlockExists(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
-                    if (!checkBlockExists(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
+                    if (!checkBlockNonCross(xy.first - 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first - 1, xy.second))
+                    if (!checkBlockNonCross(xy.first + 1, xy.second)) result.add(findAverageCoord(xy.first, xy.second, xy.first + 1, xy.second))
                     if (!checkBlockExists(xy.first, xy.second - 1)) result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second - 1))
                     if (!checkBlockExists(xy.first, xy.second + 1)) result.add(findAverageCoord(xy.first, xy.second, xy.first, xy.second + 1))
                 }
@@ -525,6 +524,10 @@ class FieldActor(
 
     private fun checkBlockExists(x: Int, y: Int): Boolean {
         return blocksMap.containsKey(Pair(x,y)) || (x == 5 && y == -1)
+    }
+
+    private fun checkBlockNonCross(x: Int, y: Int): Boolean {
+        return (blocksMap.containsKey(Pair(x,y)) && !(blocksMap[Pair(x,y)] is MixerCrossActor) && !(blocksMap[Pair(x,y)] is MixerActor)) || (x == 5 && y == -1)
     }
 
     companion object Markup {
