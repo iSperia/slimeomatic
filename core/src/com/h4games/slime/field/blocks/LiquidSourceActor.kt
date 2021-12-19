@@ -9,7 +9,7 @@ class LiquidSourceActor(
     context: GameContext,
     size: Float,
     val colors: List<Color>
-) : BlockActor(context, size, "test_bottom") {
+) : BlockActor(context, size, "liquid_source") {
 
     lateinit var liquidImage: Image
 
@@ -20,9 +20,15 @@ class LiquidSourceActor(
     override fun initBackground() {
         super.initBackground()
 
-        liquidImage = Image(context.texture("test_liquid")).apply {
-            width = size
-            height = size
+        val sc = size / 400f
+        image.width = 200f * sc
+        image.height = 300f * sc
+        image.x = 100f * sc
+
+        liquidImage = Image(context.texture("block_liquid_bg")).apply {
+            width = 200f * sc
+            height = 300f * sc
+            x = 100f * sc
             color = colors[colorActiveIndex]
         }
         background.addActor(liquidImage)
@@ -38,11 +44,12 @@ class LiquidSourceActor(
 
     override fun initForeground() {
         super.initForeground()
-        refreshButton = Image(context.texture("test_refresh")).apply {
-            width = size * 12f / 72f
-            height = size * 12f / 72f
-            x = size * 12f / 72f
-            y = size * 12f / 72f
+        val sc = size / 400f
+        refreshButton = Image(context.texture("liquid_btn")).apply {
+            width = 91f * sc
+            height = 77f * sc
+            x = 162f * sc
+            y = 73f * sc
         }
         foreground.addActor(refreshButton)
         refreshButton.onClick {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.h4games.slime.GameContext
+import kotlin.math.min
 
 class AnimatedActor(
     val context: GameContext,
@@ -25,11 +26,10 @@ class AnimatedActor(
     override fun act(delta: Float) {
         super.act(delta)
         timePassed += delta
-        if (timePassed > animation.animationDuration) {
-            remove()
-        } else {
-            texture = TextureRegionDrawable(animation.getKeyFrame(if (inverted) (animation.animationDuration - timePassed) else timePassed)).tint(color)
-        }
+        timePassed = min(timePassed, animation.animationDuration)
+        texture = TextureRegionDrawable(animation.getKeyFrame(timePassed)).apply {
+            scaleX = if (inverted) -1f else 1f
+        }.tint(color)
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {

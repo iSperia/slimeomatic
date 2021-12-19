@@ -19,6 +19,11 @@ class SlimeMachineGame() : Game() {
     override fun create() {
         KtxAsync.initiate()
         context = GameContext(TextureAtlas(Gdx.files.internal("textures.atlas")))
+        context.music("music").apply {
+            this.isLooping = true
+            this.volume = 0.8f
+            play()
+        }
 
         val gson = Gson()
 

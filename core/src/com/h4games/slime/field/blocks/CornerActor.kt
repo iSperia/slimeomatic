@@ -1,6 +1,7 @@
 package com.h4games.slime.field.blocks
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.h4games.slime.GameContext
 import ktx.actors.onClick
 
@@ -8,7 +9,7 @@ class CornerActor(
     context: GameContext,
     size: Float,
     var bottomLeft: Boolean
-) : BlockActor(context, size, "test_corner_bottom_left") {
+) : BlockActor(context, size, "block_corner") {
 
     lateinit var flipButton: Image
 
@@ -17,25 +18,32 @@ class CornerActor(
     }
 
     private fun bind(size: Float) {
-        if (!bottomLeft) {
-            image.scaleX = -1f
-            image.x += size
+        val sc = size / 400f
+        image.drawable = if (bottomLeft) TextureRegionDrawable(context.texture("block_corner_alt")) else
+            TextureRegionDrawable(context.texture("block_corner"))
+        image.width = 300f * sc
+        image.height = 300f * sc
+        if (bottomLeft) {
+            image.x = 100f * sc
+            image.y = 100f * sc
         } else {
-            image.scaleX = 1f
             image.x = 0f
+            image.y = 100f * sc
         }
     }
 
     override fun initForeground() {
         super.initForeground()
-        flipButton = Image(context.texture("test_flip")).apply {
-            width = size * 12f / 72f
-            height = size * 12f / 72f
-            x = size * 12f / 72f
-            y = size * 12f / 72f
+        val sc = size / 400f
+        flipButton = Image(context.texture("corner_btn")).apply {
+            width = sc * 83f
+            height = sc * 82f
+            x = 180f * sc
+            y = 120f * sc
         }
-        addActor(flipButton)
+        foreground.addActor(flipButton)
         flipButton.onClick {
+            context.sound("switch").play()
             bottomLeft = !bottomLeft
             bind(size)
         }
